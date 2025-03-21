@@ -22,7 +22,7 @@ public class GestorUsuarios {
             throw new Exception("El telefono es obligatorio");
         }
 
-        if (fechaCumpleanios == null || telefono.isEmpty()){
+        if (fechaCumpleanios == null ){
             throw new Exception("La fecha de cumpleaños es obligatorio");
         }
 
