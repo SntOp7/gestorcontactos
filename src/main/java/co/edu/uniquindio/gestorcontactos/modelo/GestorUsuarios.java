@@ -52,7 +52,7 @@ public class GestorUsuarios {
         }
     }
 
-    public void eliminar(String nombre, String telefono) throws Exception{
+    public void eliminarUsuario(String nombre, String telefono) throws Exception{
         Usuario usuarioBuscado = buscarUsuarioNombre(nombre);
         if (usuarioBuscado == null){
             usuarioBuscado = buscarUsuarioTelefono(telefono);
