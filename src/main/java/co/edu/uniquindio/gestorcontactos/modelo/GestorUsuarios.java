@@ -53,19 +53,12 @@ public class GestorUsuarios {
                 .orElse(null);
     }
 
-    public void editarUsuario(Usuario usuario) throws Exception{
-        Usuario usuarioBuscado = buscarUsuarioNombre(usuario.getNombre());
-        if (usuarioBuscado == null){
-            usuarioBuscado = buscarUsuarioTelefono(usuario.getTelefono());
-        }
+    public void editarUsuario(Usuario usuario){
+        usuario.setNombre(usuario.getNombre());
+        usuario.setApellido(usuario.getApellido());
+        usuario.setTelefono(usuario.getTelefono());
+        usuario.setCorreo(usuario.getCorreo());
 
-        if(usuarioBuscado!=null){
-            usuarioBuscado.setNombre(usuario.getNombre());
-            usuarioBuscado.setApellido(usuario.getApellido());
-            usuarioBuscado.setTelefono(usuario.getTelefono());
-        }else{
-            throw new Exception("No existe un usuario con el nombre dado");
-        }
     }
 
     public void eliminarUsuario(Usuario usuario){
