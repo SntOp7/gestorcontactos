@@ -22,6 +22,10 @@ public class GestorUsuarios {
             throw new Exception("El telefono es obligatorio");
         }
 
+        if (fechaCumpleanios == null || telefono.isEmpty()){
+            throw new Exception("La fecha de cumpleaños es obligatorio");
+        }
+
         if(correo == null || correo.isEmpty()){
             throw new Exception("El correo es obligatoria");
         }
@@ -57,6 +61,7 @@ public class GestorUsuarios {
         usuario.setNombre(usuario.getNombre());
         usuario.setApellido(usuario.getApellido());
         usuario.setTelefono(usuario.getTelefono());
+        usuario.setFechaCumpleanios(usuario.getFechaCumpleanios());
         usuario.setCorreo(usuario.getCorreo());
 
     }
