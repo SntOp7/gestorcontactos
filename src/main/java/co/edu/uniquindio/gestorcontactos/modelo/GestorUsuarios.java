@@ -14,7 +14,10 @@ public class GestorUsuarios {
         listaUsuarios.add(usuario);
     }
 
-    public void editarUsuario(String nombre, String apellido, String telefono, String correo){
-        
+    public void buscarUsuario(String nombre,String telefono){
+        return listaUsuarios.stream()
+                .filter(billetera -> billetera.getNumero().equals(numero))
+                .findFirst()
+                .orElse(null);
     }
 }
