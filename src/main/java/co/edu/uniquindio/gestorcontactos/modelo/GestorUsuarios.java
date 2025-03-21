@@ -25,7 +25,7 @@ public class GestorUsuarios {
         if(correo == null || correo.isEmpty()){
             throw new Exception("El correo es obligatoria");
         }
-        
+
         Usuario usuarioBuscado = buscarUsuarioNombre(nombre);
         if (usuarioBuscado == null){
             usuarioBuscado = buscarUsuarioTelefono(telefono);
@@ -68,16 +68,7 @@ public class GestorUsuarios {
         }
     }
 
-    public void eliminarUsuario(String nombre, String telefono) throws Exception{
-        Usuario usuarioBuscado = buscarUsuarioNombre(nombre);
-        if (usuarioBuscado == null){
-            usuarioBuscado = buscarUsuarioTelefono(telefono);
-        }
-
-        if(usuarioBuscado==null){
-            throw new Exception("No existe un usuario con el nombre dado");
-        }else{
-            listaUsuarios.remove(usuarioBuscado);
-        }
+    public void eliminarUsuario(Usuario usuario){
+        listaUsuarios.remove(usuario);
     }
 }
