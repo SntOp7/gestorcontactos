@@ -42,9 +42,9 @@
                 <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="TELEFONO" GridPane.rowIndex="2" />
                 <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="CUMPLEAÑOS" GridPane.rowIndex="3" />
                 <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="E-MAIL" GridPane.rowIndex="4" />
-                <TextField fx:id="nombretxt" onAction="#nombreFieldAction" prefHeight="26.0" prefWidth="158.0" promptText="Nombre" GridPane.columnIndex="1" />
-                <TextField fx:id="apellidotxt" onAction="#apellidoFieldAction" promptText="Apellido(s)" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <TextField fx:id="telefonotxt" onAction="#telefonoFieldAction" promptText="Teléfono" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="nombretxt" prefHeight="26.0" prefWidth="158.0" promptText="Nombre" GridPane.columnIndex="1" />
+                <TextField fx:id="apellidotxt" promptText="Apellido(s)" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="telefonotxt" promptText="Teléfono" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <TextField fx:id="emailtxt" promptText="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 <DatePicker fx:id="cumpleaniosDate" promptText="Cumpleaños" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             </children>
