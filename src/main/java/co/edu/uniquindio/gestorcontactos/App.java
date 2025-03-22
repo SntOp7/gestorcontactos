@@ -1,12 +1,15 @@
 package co.edu.uniquindio.gestorcontactos;
 
 import co.edu.uniquindio.gestorcontactos.controladores.ContactoController;
+import co.edu.uniquindio.gestorcontactos.controladores.Controller;
 import co.edu.uniquindio.gestorcontactos.modelo.GestorUsuarios;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lombok.Getter;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -18,8 +21,10 @@ public class App extends Application {
     private Stage principalStage;
     private Stage contactoStage;
 
-    PrincipalController principalController;
-    ContactoController contactoController;
+    @Getter
+    Controller principalController;
+    @Getter
+    Controller contactoController;
 
     public static void main(String[] args) {
         launch();
@@ -33,32 +38,24 @@ public class App extends Application {
     }
 
     public void openPrincipalView() throws Exception {
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("interfazPrincipalContacto.fxml"));
-        Parent root = loader.load();
-        principalController = loader.getController();
-        principalController.setApp(this);
-
-        Scene scene = new Scene(root);
-        principalStage = new Stage();
-        principalStage.setScene(scene);
-
-        principalStage.show();
-
+        iniciarView(principalStage, principalController, loader);
     }
 
     public void openContactoView() throws Exception {
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("interfazContacto.fxml"));
+        iniciarView(contactoStage, contactoController, loader);
+    }
+
+    public void iniciarView(Stage stage, Controller controller, FXMLLoader loader) throws Exception {
         Parent root = loader.load();
-        contactoController = loader.getController();
-        contactoController.setApp(this);
+        controller = loader.getController();
+        controller.setApp(this);
 
         Scene scene = new Scene(root);
-        contactoStage = new Stage();
-        contactoStage.setScene(scene);
-
-        contactoStage.show();
-
+        stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 }
