@@ -3,6 +3,7 @@ package co.edu.uniquindio.gestorcontactos.controladores;
 import co.edu.uniquindio.gestorcontactos.App;
 import co.edu.uniquindio.gestorcontactos.modelo.Usuario;
 import co.edu.uniquindio.gestorcontactos.modelo.enums.Filtrado;
+import co.edu.uniquindio.gestorcontactos.modelo.enums.Opciones;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,13 +41,13 @@ public class PrincipalController extends Controller implements Initializable {
         private TableColumn<Usuario, String> tcTelefono;
 
         @FXML
-        private ComboBox<?> filtrarBox;
+        private ComboBox<Filtrado> filtrarBox;
 
         @FXML
         private TableColumn<Usuario, String> tcCumpleanios;
 
         @FXML
-        private ComboBox<?> opcionesBox;
+        private ComboBox<Opciones> opcionesBox;
 
         @FXML
         private TableColumn<Usuario, String> tcApellido;
@@ -56,19 +57,31 @@ public class PrincipalController extends Controller implements Initializable {
 
         private ObservableList<Usuario> usuarios;
         private ObservableList<Filtrado> filtrados;
+        private ObservableList<Opciones> opciones;
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
                 usuarios = FXCollections.observableArrayList();
                 filtrados = FXCollections.observableArrayList();
-                usuarios.addAll(app.gestor.getListaUsuarios());
+                opciones = FXCollections.observableArrayList();
+                initData();
+                initTable();
+                seleccionarUsuario();
+        }
+
+        private void initData() {
+                if (app != null) {
+                        usuarios.addAll(app.gestor.getListaUsuarios());
+                }
                 filtrados.add(Filtrado.NOMBRE);
                 filtrados.add(Filtrado.TELEFONO);
                 filtrados.add(Filtrado.NINGUNO);
-                initTable();
-                filtrarBox.setItems;
+                opciones.add(Opciones.AGREGAR);
+                opciones.add(Opciones.ELIMINAR);
+                opciones.add(Opciones.EDITAR);
+                opcionesBox.setItems(opciones);
+                filtrarBox.setItems(filtrados);
                 tblContactos.setItems(usuarios);
-                seleccionarUsuario();
         }
 
         private void initTable() {
