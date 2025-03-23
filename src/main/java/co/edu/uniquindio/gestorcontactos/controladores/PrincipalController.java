@@ -15,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -52,12 +53,18 @@ public class PrincipalController extends Controller implements Initializable {
         @FXML
         private TableColumn<Usuario, String> tcApellido;
 
+        @FXML
+        private ImageView busquedaImagen;
+
         @Setter
         private App app;
 
         private ObservableList<Usuario> usuarios;
         private ObservableList<Filtrado> filtrados;
         private ObservableList<Opciones> opciones;
+
+
+        
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -67,6 +74,8 @@ public class PrincipalController extends Controller implements Initializable {
                 initData();
                 initTable();
                 seleccionarUsuario();
+                cargarImagen();
+                
         }
 
         private void initData() {
@@ -95,6 +104,25 @@ public class PrincipalController extends Controller implements Initializable {
         private void seleccionarUsuario() {
                 tblContactos.setOnMouseClicked(e -> setUsuarioSelected(tblContactos.getSelectionModel().getSelectedItem()));
         }
+
+
+
+
+
+
+        private void cargarImagen() {
+                try {
+                    URL imageUrl = getClass().getResource("/imagenes/informacion-del-contacto.png");
+                    if (imageUrl == null) {
+                        throw new Exception("No se encontró la imagen");
+                    }
+            
+                    Image img = new Image(imageUrl.toExternalForm());
+                    busquedaImagen.setImage(img);
+                } catch (Exception e) {
+                    mostrarAlerta("No se pudo cargar la imagen", Alert.AlertType.ERROR);
+                }
+            }
 
 
 
