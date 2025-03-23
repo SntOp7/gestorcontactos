@@ -104,5 +104,14 @@
             <Image url="@imagenes/contacto-3d.png" />
          </image>
         </ImageView>
+      <ImageView fitHeight="73.0" fitWidth="72.0" layoutX="35.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagenes/circulo.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="73.0" fitWidth="72.0" layoutX="297.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imagenes/lista-de-contactos.png" />
+         </image></ImageView>
     </children>
 </AnchorPane>
