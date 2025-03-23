@@ -19,7 +19,7 @@ import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.awt.event.ActionEvent;
+import javafx.event.ActionEvent;
 
 
 
