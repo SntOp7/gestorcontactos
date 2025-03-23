@@ -101,7 +101,7 @@
         </GridPane>
         <ImageView fx:id="imagenContacto" fitHeight="89.0" fitWidth="95.0" layoutX="160.0" layoutY="66.0">
          <image>
-            <Image url="src\main\resources\co\edu\uniquindio\gestorcontactos\imagenes\contacto-3d.png" />
+            <Image url="@imagenes/contacto-3d.png" />
          </image>
         </ImageView>
     </children>
