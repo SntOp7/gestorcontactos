@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.Icon?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -9,27 +12,25 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="707.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Text layoutX="208.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text layoutX="203.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contacto ">
+      <Text layoutX="257.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contacto ">
          <font>
             <Font name="Berlin Sans FB" size="48.0" />
          </font>
       </Text>
-      <TextField fx:id="buscarContactoTxt" alignment="CENTER" layoutX="224.0" layoutY="85.0" onAction="#buscarTxtAction" promptText="Buscar Contacto" style="-fx-background-color: #FFFFFF;" />
-      <TableView layoutX="70.0" layoutY="155.0" prefHeight="200.0" prefWidth="459.0" style="-fx-background-color: dddddd;">
+      <TextField fx:id="buscarContactoTxt" alignment="CENTER" layoutX="260.0" layoutY="86.0" onAction="#buscarTxtAction" promptText="Buscar Contacto" style="-fx-background-color: #FFFFFF;" />
+      <TableView layoutX="46.0" layoutY="142.0" prefHeight="200.0" prefWidth="616.0" style="-fx-background-color: dddddd;">
         <columns>
-          <TableColumn prefWidth="101.60003662109375" text="Nombre" />
-          <TableColumn prefWidth="95.20001220703125" text="Apellidos(s)" />
-            <TableColumn prefWidth="77.5999755859375" text="Teléfono" />
-            <TableColumn prefWidth="87.20001220703125" text="Cumpleaños" />
-            <TableColumn fx:id="tablaContacto" prefWidth="103.20001220703125" text="Foto de Perfil" />
+          <TableColumn prefWidth="153.0" text="Nombre" />
+          <TableColumn prefWidth="123.0" text="Apellidos(s)" />
+            <TableColumn minWidth="0.0" prefWidth="0.0" text="Teléfono" />
+            <TableColumn prefWidth="166.0" text="Cumpleaños" />
+            <TableColumn fx:id="tablaContacto" prefWidth="174.0" text="Foto de Perfil" />
         </columns>
       </TableView>
-      <ComboBox fx:id="filtrarBox" layoutX="225.0" layoutY="382.0" onAction="#filtrarBoxAction" prefWidth="150.0" promptText="Filtrar" style="-fx-background-color: #8A9597;" />
-      <ComboBox fx:id="opcionesBox" layoutX="203.0" layoutY="432.0" onAction="#opcionesBoxAction" prefHeight="29.0" prefWidth="193.0" promptText="Opciones de Contactos" style="-fx-background-color: #93AAA2;" />
-      <Icon content="SEARCH" layoutX="385.0" layoutY="84.0" style="-fx-background-color: #FFFFFF;" />
+      <ComboBox fx:id="filtrarBox" layoutX="279.0" layoutY="377.0" onAction="#filtrarBoxAction" prefWidth="150.0" promptText="Filtrar" style="-fx-background-color: #8A9597;" />
+      <ComboBox fx:id="opcionesBox" layoutX="257.0" layoutY="429.0" onAction="#opcionesBoxAction" prefHeight="29.0" prefWidth="193.0" promptText="Opciones de Contactos" style="-fx-background-color: #93AAA2;" />
    </children>
 </AnchorPane>
