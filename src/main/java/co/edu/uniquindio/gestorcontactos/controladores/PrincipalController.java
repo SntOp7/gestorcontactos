@@ -2,6 +2,7 @@ package co.edu.uniquindio.gestorcontactos.controladores;
 
 import co.edu.uniquindio.gestorcontactos.App;
 import co.edu.uniquindio.gestorcontactos.modelo.Usuario;
+import co.edu.uniquindio.gestorcontactos.modelo.enums.Filtrado;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -52,12 +53,18 @@ public class PrincipalController extends Controller implements Initializable {
         private App app;
 
         private ObservableList<Usuario> usuarios;
+        private ObservableList<Filtrado> filtrados;
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
                 usuarios = FXCollections.observableArrayList();
+                filtrados = FXCollections.observableArrayList();
                 usuarios.addAll(app.gestor.getListaUsuarios());
+                filtrados.add(Filtrado.NOMBRE);
+                filtrados.add(Filtrado.TELEFONO);
+                filtrados.add(Filtrado.NINGUNO);
                 initTable();
+                filtrarBox.setItems;
                 tblContactos.setItems(usuarios);
                 seleccionarUsuario();
         }
@@ -72,20 +79,5 @@ public class PrincipalController extends Controller implements Initializable {
 
         private void seleccionarUsuario() {
                 tblContactos.setOnMouseClicked(e -> setUsuarioSelected(tblContactos.getSelectionModel().getSelectedItem()));
-        }
-
-        @FXML
-        void buscarAction(ActionEvent event) {
-
-        }
-
-        @FXML
-        void filtrarAction(ActionEvent event) {
-
-        }
-
-        @FXML
-        void opcionesAction(ActionEvent event) {
-
         }
 }
