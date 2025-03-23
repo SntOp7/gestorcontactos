@@ -6,5 +6,6 @@ module co.edu.uniquindio.gestorcontactos {
 
 
     opens co.edu.uniquindio.gestorcontactos to javafx.fxml;
+    opens co.edu.uniquindio.gestorcontactos.controladores to javafx.fxml;
     exports co.edu.uniquindio.gestorcontactos;
 }
