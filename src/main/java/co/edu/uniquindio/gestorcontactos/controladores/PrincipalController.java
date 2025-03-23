@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 
 import java.awt.event.ActionEvent;
 
-public class InterfazContactoController {
+public class PrincipalController {
 
 
         @FXML
