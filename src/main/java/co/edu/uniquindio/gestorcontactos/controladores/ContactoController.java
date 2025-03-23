@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import lombok.Setter;
 
 import java.awt.event.ActionEvent;
@@ -81,7 +82,8 @@ public class ContactoController extends Controller implements Initializable {
 
     @FXML
     void cancelarButtonAction(ActionEvent event) {
-
+        Stage stage = (Stage) cancelarButton.getScene().getWindow();
+        stage.close();
     }
 
     private void editarUsuario(Usuario usuario) {
@@ -90,23 +92,24 @@ public class ContactoController extends Controller implements Initializable {
         String telefono = telefonotxt.getText();
         LocalDate fechaCumpleanios = cumpleaniosDate.getValue();
         String correo = emailtxt.getText();
-
-        usuario.setNombre(nombre);
-        usuario.setApellido(apellido);
-        usuario.setTelefono(telefono);
-        usuario.setFechaCumpleanios(fechaCumpleanios);
-        usuario.setCorreo(correo);
+        Usuario aux = new Usuario(nombre, apellido, telefono, fechaCumpleanios, correo);
+        try {
+            app.gestor.editarUsuario(aux);
+            super.mostrarAlerta("Se ha editado el contacto", Alert.AlertType.INFORMATION);
+        } catch (Exception e) {
+            super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 
     private void agregarUsuario() {
-        try {
             String nombre = nombretxt.getText();
             String apellido = apellidotxt.getText();
             String telefono = telefonotxt.getText();
             LocalDate fechaCumpleanios = cumpleaniosDate.getValue();
             String correo = emailtxt.getText();
-
+        try {
             app.gestor.crearContacto(nombre, apellido, telefono, fechaCumpleanios, correo);
+            super.mostrarAlerta("Se ha agregado el contacto.", Alert.AlertType.INFORMATION);
         } catch (Exception e) {
             super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
         }
