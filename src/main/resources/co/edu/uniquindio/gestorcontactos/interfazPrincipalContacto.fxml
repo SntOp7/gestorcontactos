@@ -31,6 +31,6 @@
         </columns>
       </TableView>
       <ComboBox fx:id="filtrarBox" layoutX="346.0" layoutY="377.0" onAction="#filtrarAction" prefWidth="150.0" promptText="Filtrar" style="-fx-background-color: #8A9597;" />
-      <ComboBox fx:id="opcionesBox" layoutX="321.0" layoutY="432.0" onAction="#opcionesAction" prefHeight="29.0" prefWidth="193.0" promptText="Opciones de Contactos" style="-fx-background-color: #93AAA2;" />
+      <ComboBox fx:id="opcionesBox" layoutX="321.0" layoutY="432.0" onAction="#seleccionarAction" prefHeight="29.0" prefWidth="193.0" promptText="Opciones de Contactos" style="-fx-background-color: #93AAA2;" />
    </children>
 </AnchorPane>
