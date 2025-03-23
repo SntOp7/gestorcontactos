@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import lombok.Setter;
@@ -52,6 +53,7 @@ public class ContactoController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cargarData();
+        cargarImagen();
     }
 
     private void cargarData() {
@@ -114,4 +116,15 @@ public class ContactoController extends Controller implements Initializable {
             super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
+
+    
+    
+
 }
+
+
+    
+    
+
+

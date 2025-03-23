@@ -20,7 +20,10 @@
             <Font name="Berlin Sans FB" size="48.0" />
          </font>
       </Text>
-      <TextField fx:id="buscarContactoTxt" alignment="CENTER" layoutX="324.0" layoutY="86.0" onAction="#buscarAction" promptText="Buscar Contacto" style="-fx-background-color: #FFFFFF;" />
+      <TextField fx:id="buscarContactoTxt" alignment="CENTER" layoutX="324.0" layoutY="86.0" onAction="#buscarAction" promptText="Buscar Contacto" style="-fx-background-color: #FFFFFF;">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font></TextField>
       <TableView fx:id="tblContactos" layoutX="38.0" layoutY="142.0" prefHeight="200.0" prefWidth="766.0" style="-fx-background-color: dddddd;">
         <columns>
           <TableColumn fx:id="tcNombre" prefWidth="128.0" text="Nombre" />
