@@ -1,13 +1,17 @@
 package co.edu.uniquindio.gestorcontactos.modelo;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
 
 @NoArgsConstructor
 public class GestorUsuarios {
+    @Getter
+    @Setter
     public LinkedList<Usuario> listaUsuarios = new LinkedList<>();
 
     /**
