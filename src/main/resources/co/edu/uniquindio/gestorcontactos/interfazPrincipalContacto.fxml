@@ -40,7 +40,7 @@
       <ImageView fitHeight="31.0" fitWidth="39.0" layoutX="474.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="busquedaImagen" fitHeight="40.0" fitWidth="39.0" layoutX="488.0" layoutY="80.0" onDragDetected="#buscarAction" pickOnBounds="true">
          <image>
-            <Image url="@imagenes/informacion-del-contacto.png" />
+            <Image url="@imagenes/informacion-del-contacto.png"/>
          </image></ImageView>
    </children>
 </AnchorPane>
