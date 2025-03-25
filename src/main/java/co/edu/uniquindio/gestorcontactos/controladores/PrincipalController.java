@@ -2,6 +2,7 @@ package co.edu.uniquindio.gestorcontactos.controladores;
 
 import co.edu.uniquindio.gestorcontactos.App;
 import co.edu.uniquindio.gestorcontactos.modelo.Usuario;
+import co.edu.uniquindio.gestorcontactos.modelo.GestorUsuarios;
 import co.edu.uniquindio.gestorcontactos.modelo.enums.Filtrado;
 import co.edu.uniquindio.gestorcontactos.modelo.enums.Opciones;
 import javafx.beans.property.SimpleStringProperty;
@@ -22,7 +23,7 @@ import lombok.Setter;
 import javafx.event.ActionEvent;
 
 
-
+import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -128,7 +129,7 @@ public class PrincipalController extends Controller implements Initializable {
                 tblContactos.setItems(usuarios);
         }
 
-        @FXML
+        /*@FXML
         void buscarAction(ActionEvent event) {
                 Filtrado filtrado = filtrarBox.getSelectionModel().getSelectedItem();
                 String argumento = buscarContactoTxt.getText();
@@ -143,5 +144,67 @@ public class PrincipalController extends Controller implements Initializable {
                 } else if (usuario == null) {
                         super.mostrarAlerta("No se encontro el usuario.", Alert.AlertType.ERROR);
                 }
+        }*/
+
+        @FXML
+        void buscarAction(MouseEvent event) {
+                Filtrado filtrado = filtrarBox.getSelectionModel().getSelectedItem(); // Obtener el tipo de filtro
+                String argumento = buscarContactoTxt.getText().trim(); // Obtener el texto ingresado
+
+                if (argumento.isEmpty()) {
+                        super.mostrarAlerta("Debe ingresar un nombre, apellido o teléfono.", Alert.AlertType.ERROR);
+                        return;
+                }
+
+                if (filtrado == null) {
+                        super.mostrarAlerta("Debe seleccionar un método de filtrado.", Alert.AlertType.ERROR);
+                        return;
+                }
+
+                buscarUsuario(filtrado, app.gestor);
+        }
+
+        public void buscarUsuario(Filtrado filtrado, GestorUsuarios gestorUsuarios) {
+                try {
+                        String filtro = buscarContactoTxt.getText().trim();
+
+                        if (filtro.isEmpty()) {
+                                super.mostrarAlerta("Ingrese un nombre, apellido o teléfono.", Alert.AlertType.WARNING);
+                                return;
+                        }
+
+                        Usuario usuarioEncontrado = null;
+
+                        if (filtrado == Filtrado.TELEFONO) {
+                                if (!filtro.matches("\\d+")) {
+                                        super.mostrarAlerta("El teléfono debe contener solo números.", Alert.AlertType.ERROR);
+                                        return;
+                                }
+                                usuarioEncontrado = gestorUsuarios.buscarUsuarioTelefono(filtro);
+                        } else if (filtrado == Filtrado.NOMBRE) {
+                                String[] palabras = filtro.split("\\s+");
+
+                                if (palabras.length == 1) {
+                                        usuarioEncontrado = gestorUsuarios.buscarUsuarioNombre(filtro);
+                                } else if (palabras.length == 2) {
+                                        usuarioEncontrado = gestorUsuarios.buscarUsuarioApellido(palabras[1]);
+                                } else {
+                                        super.mostrarAlerta("Ingrese solo un nombre o un apellido.", Alert.AlertType.WARNING);
+                                        return;
+                                }
+                        }
+
+                        if (usuarioEncontrado != null) {
+                                tblContactos.getSelectionModel().clearSelection();
+                                tblContactos.getSelectionModel().select(usuarioEncontrado);
+                                tblContactos.scrollTo(usuarioEncontrado);
+                        } else {
+                                super.mostrarAlerta("No se encontró el usuario.", Alert.AlertType.INFORMATION);
+                        }
+
+                } catch (IllegalArgumentException e) {
+                        super.mostrarAlerta("Error: " + e.getMessage(), Alert.AlertType.ERROR);
+                }
+
         }
 }

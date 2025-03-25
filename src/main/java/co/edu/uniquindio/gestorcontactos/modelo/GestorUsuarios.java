@@ -137,7 +137,7 @@ public class GestorUsuarios {
             throw new IllegalArgumentException("El campo 'teléfono' debe empezar por 3 y tener 10 dígitos.");
         }
         if (fechaCumpleanios == null || fechaCumpleanios.isAfter(LocalDate.now())) {
-            throw new IllegalArgumentException("La fecha de cumpleaños no puede ser futura.");
+            throw new IllegalArgumentException("La fecha de cumpleaños es invalida.");
         }
         if (correo == null || correo.isEmpty() || !correo.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
             throw new IllegalArgumentException("El campo 'correo' debe ser una dirección válida.");

@@ -38,7 +38,7 @@
       <ComboBox fx:id="opcionesBox" layoutX="306.0" layoutY="409.0" prefHeight="31.0" prefWidth="216.0" promptText="Opciones de Contactos" style="-fx-background-color: #93AAA2; -fx-border-radius: 50px; -fx-border-width: 2px; -fx-background-radius: 50px;" />
       <Button fx:id="aceptarButton" layoutX="381.0" layoutY="456.0" mnemonicParsing="false" onAction="#aceptarAction" style="-fx-background-color: #008f39; -fx-border-radius: 50px; -fx-border-width: 2px; -fx-background-radius: 50px;" text="Aceptar" />
       <ImageView fitHeight="31.0" fitWidth="39.0" layoutX="474.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="busquedaImagen" fitHeight="40.0" fitWidth="39.0" layoutX="488.0" layoutY="80.0" onDragDetected="#buscarAction" pickOnBounds="true">
+      <ImageView fx:id="busquedaImagen" fitHeight="40.0" fitWidth="39.0" layoutX="488.0" layoutY="80.0" onMouseClicked="#buscarAction" pickOnBounds="true">
          <image>
             <Image url="@imagenes/informacion-del-contacto.png" />
          </image></ImageView>
