@@ -118,6 +118,7 @@ public class ContactoController extends Controller implements Initializable {
             super.mostrarAlerta("Se ha agregado el contacto.", Alert.AlertType.INFORMATION);
         } catch (Exception e) {
             super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
+            
         }
     }
 
