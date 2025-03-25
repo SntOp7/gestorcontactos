@@ -57,7 +57,10 @@
                <font>
                   <Font name="Berlin Sans FB" size="15.0" />
                </font></Text>
-                <TextField fx:id="nombretxt" prefHeight="31.0" prefWidth="174.0" promptText="Nombre" style="-fx-border-radius: 50px; -fx-border-width: 2px; -fx-background-radius: 50px;" GridPane.columnIndex="1" />
+                <TextField fx:id="nombretxt" prefHeight="31.0" prefWidth="174.0" promptText="Nombre" style="-fx-border-radius: 50px; -fx-border-width: 2px; -fx-background-radius: 50px;" GridPane.columnIndex="1">
+               <font>
+                  <Font name="Berlin Sans FB" size="15.0" />
+               </font></TextField>
                 <TextField fx:id="apellidotxt" promptText="Apellido(s)" style="-fx-border-radius: 50px; -fx-border-width: 2px; -fx-background-radius: 50px;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="Berlin Sans FB" size="15.0" />
