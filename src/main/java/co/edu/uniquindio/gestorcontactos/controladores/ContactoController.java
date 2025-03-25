@@ -57,7 +57,7 @@ public class ContactoController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cargarData();
-        cargarImagen();
+        cargarImagen("/imagenes/contacto-3d.png", imagenContacto);
     }
 
     private void cargarData() {
@@ -119,7 +119,8 @@ public class ContactoController extends Controller implements Initializable {
         String telefono = telefonotxt.getText();
         LocalDate fechaCumpleanios = cumpleaniosDate.getValue();
         String correo = emailtxt.getText();
-        Usuario aux = new Usuario(nombre, apellido, telefono, fechaCumpleanios, correo);
+        String rutaImagenPerfil = imagenContacto.getImage().toString();
+        Usuario aux = new Usuario(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil);
         try {
             app.gestor.editarUsuario(aux);
             super.mostrarAlerta("Se ha editado el contacto", Alert.AlertType.INFORMATION);
@@ -134,33 +135,24 @@ public class ContactoController extends Controller implements Initializable {
             String telefono = telefonotxt.getText();
             LocalDate fechaCumpleanios = cumpleaniosDate.getValue();
             String correo = emailtxt.getText();
+            String rutaImagenPerfil = imagenContacto.getImage().toString();
         try {
-            app.gestor.crearContacto(nombre, apellido, telefono, fechaCumpleanios, correo);
+            app.gestor.crearContacto(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil);
             super.mostrarAlerta("Se ha agregado el contacto.", Alert.AlertType.INFORMATION);
         } catch (Exception e) {
             super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
+            
         }
     }
 
 
-    private void cargarImagen() {
-        try {
-            URL imageUrl = getClass().getResource("/imagenes/contacto-3d.png");
-            if (imageUrl == null) {
-                throw new Exception("No se encontró la imagen");
-            }
-    
-            Image img = new Image(imageUrl.toExternalForm());
-            imagenContacto.setImage(img);
-        } catch (Exception e) {
-            mostrarAlerta("No se pudo cargar la imagen", Alert.AlertType.ERROR);
-        }
-    }
-    
 
 
-    
-    
+
+
+
+
+
 
 }
 

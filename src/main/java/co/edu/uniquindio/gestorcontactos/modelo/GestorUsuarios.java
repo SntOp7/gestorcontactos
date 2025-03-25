@@ -1,6 +1,5 @@
 package co.edu.uniquindio.gestorcontactos.modelo;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,9 +24,9 @@ public class GestorUsuarios {
      * @throws IllegalArgumentException Si algún campo obligatorio es nulo o vacío.
      * @throws IllegalArgumentException Si ya existe un usuario con el mismo teléfono.
      */
-    public void crearContacto(String nombre, String apellido, String telefono, LocalDate fechaCumpleanios, String correo) throws Exception {
-        confirmarUsuario(nombre, apellido, telefono, fechaCumpleanios, correo);
-        Usuario usuario = new Usuario(nombre, apellido, telefono, fechaCumpleanios, correo);
+    public void crearContacto(String nombre, String apellido, String telefono, LocalDate fechaCumpleanios, String correo, String rutaImagenPerfil) throws Exception {
+        confirmarUsuario(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil);
+        Usuario usuario = new Usuario(nombre, apellido, telefono, fechaCumpleanios, correo,rutaImagenPerfil);
         listaUsuarios.add(usuario);
     }
 
@@ -85,7 +84,7 @@ public class GestorUsuarios {
         if (usuario == null) {
             throw new NullPointerException("El usuario no puede ser nulo.");
         }
-        confirmarUsuario(usuario.getNombre(), usuario.getApellido(), usuario.getTelefono(), usuario.getFechaCumpleanios(), usuario.getCorreo());
+        confirmarUsuario(usuario.getNombre(), usuario.getApellido(), usuario.getTelefono(), usuario.getFechaCumpleanios(), usuario.getCorreo(), usuario.getRutaImagenPerfil());
         listaUsuarios.set(listaUsuarios.indexOf(usuario), usuario);
     }
 
@@ -109,14 +108,15 @@ public class GestorUsuarios {
     /**
      * Verifica que los datos del usuario sean válidos y que no haya duplicados.
      *
-     * @param nombre          Nombre del usuario.
-     * @param apellido        Apellido del usuario.
-     * @param telefono        Número de teléfono del usuario.
+     * @param nombre           Nombre del usuario.
+     * @param apellido         Apellido del usuario.
+     * @param telefono         Número de teléfono del usuario.
      * @param fechaCumpleanios Fecha de cumpleaños del usuario.
-     * @param correo          Correo electrónico del usuario.
+     * @param correo           Correo electrónico del usuario.
+     * @param rutaImagenPerfil
      * @throws IllegalArgumentException Si algún campo es nulo, vacío o no cumple con los requisitos.
      */
-    public void confirmarUsuario(String nombre, String apellido, String telefono, LocalDate fechaCumpleanios, String correo) throws Exception {
+    public void confirmarUsuario(String nombre, String apellido, String telefono, LocalDate fechaCumpleanios, String correo, String rutaImagenPerfil) throws Exception {
         if (nombre == null || nombre.isEmpty()) {
             throw new IllegalArgumentException("El campo 'nombre' no puede estar vacío.");
         }
