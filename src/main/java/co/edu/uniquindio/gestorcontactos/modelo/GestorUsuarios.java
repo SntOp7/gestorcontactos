@@ -38,6 +38,11 @@ public class GestorUsuarios {
      * @throws IllegalArgumentException Si el nombre es nulo o vacío.
      */
     public Usuario buscarUsuarioNombre(String nombre) {
+        if (nombre == null || nombre.isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede ser vacio");
+        } else if (!nombre.matches("[A-Za-zÁÉÍÓÚáéíóúñÑüÜ]+( [A-Za-zÁÉÍÓÚáéíóúñÑüÜ]+)*")) {
+            throw new IllegalArgumentException("Formato del nombre no es valido");
+        }
         return listaUsuarios.stream()
                 .filter(usuario -> usuario.getNombre().equals(nombre))
                 .findFirst()
@@ -66,6 +71,11 @@ public class GestorUsuarios {
      * @throws IllegalArgumentException Si el teléfono es nulo o vacío.
      */
     public Usuario buscarUsuarioTelefono(String telefono) {
+        if (telefono == null || telefono.isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede ser vacio");
+        } else if (!telefono.matches("3\\d{9}")) {
+            throw new IllegalArgumentException("Formato del telefono no es valido");
+        }
         return listaUsuarios.stream()
                 .filter(usuario -> usuario.getTelefono().equals(telefono))
                 .findFirst()

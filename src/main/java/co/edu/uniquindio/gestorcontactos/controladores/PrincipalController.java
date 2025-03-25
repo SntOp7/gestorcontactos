@@ -106,12 +106,36 @@ public class PrincipalController extends Controller implements Initializable {
 
 
         @FXML
-        void aceptarAction(ActionEvent event) {
+        void aceptarAction(ActionEvent event) throws Exception{
+                Opciones opcion = opcionesBox.getSelectionModel().getSelectedItem();
+                Usuario usuario = tblContactos.getSelectionModel().getSelectedItem();
+                super.setUsuarioSelected(usuario);
 
+                if (opcion == Opciones.ELIMINAR) {
+                        app.gestor.eliminarUsuario(usuario);
+                } else if (opcion == Opciones.EDITAR) {
+                        app.openContactoView();
+                        usuarios.setAll(app.gestor.getListaUsuarios());
+                        tblContactos.refresh();
+                } else if (opcion == Opciones.AGREGAR) {
+                        app.openContactoView();
+                        usuarios.setAll(app.gestor.getListaUsuarios());
+                        tblContactos.refresh();
+                } else {
+                        super.mostrarAlerta("Debe seleccionar una opción de contacto", Alert.AlertType.ERROR);
+                }
         }
 
         @FXML
         void buscarAction(ActionEvent event) {
+                Filtrado filtrado = filtrarBox.getSelectionModel().getSelectedItem();
+                String argumento = buscarContactoTxt.getText();
+                Usuario usuario = null;
+                if (filtrado == Filtrado.NOMBRE) {
 
+                } else if (filtrado == Filtrado.TELEFONO) {
+                       usuario = app.gestor.buscarUsuarioApellido(argumento);
+                       tblContactos.getSelectionModel().select(usuario);
+                }
         }
 }
