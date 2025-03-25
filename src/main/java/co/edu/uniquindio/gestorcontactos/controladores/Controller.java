@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.File;
 import java.net.URL;
 
 public abstract class Controller {
@@ -31,11 +32,20 @@ public abstract class Controller {
 
     public void cargarImagen(String imagePath, ImageView imageView) {
         try {
-            URL imageUrl = getClass().getResource(imagePath);
-            if (imageUrl == null) {
-                mostrarAlerta("No se encontró la imagen: " + imagePath, Alert.AlertType.ERROR);
+            if (imagePath.startsWith("/") || imagePath.startsWith("resources/")) {
+                URL imageUrl = getClass().getResource(imagePath);
+                if (imageUrl == null) {
+                    mostrarAlerta("No se encontró la imagen en el classpath: " + imagePath, Alert.AlertType.ERROR);
+                } else {
+                    imageView.setImage(new Image(imageUrl.toExternalForm()));
+                }
             } else {
-                imageView.setImage(new Image(imageUrl.toExternalForm()));
+                File file = new File(imagePath);
+                if (!file.exists()) {
+                    mostrarAlerta("No se encontró la imagen en el sistema de archivos: " + imagePath, Alert.AlertType.ERROR);
+                } else {
+                    imageView.setImage(new Image(file.toURI().toString()));
+                }
             }
         } catch (Exception e) {
             mostrarAlerta("No se pudo cargar la imagen: " + imagePath, Alert.AlertType.ERROR);

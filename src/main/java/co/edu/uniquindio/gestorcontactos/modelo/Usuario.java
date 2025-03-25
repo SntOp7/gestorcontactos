@@ -13,4 +13,5 @@ public class Usuario {
     String telefono;
     LocalDate fechaCumpleanios;
     String correo;
+    private String rutaImagenPerfil;
 }
