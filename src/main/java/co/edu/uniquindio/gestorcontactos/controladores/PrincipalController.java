@@ -107,21 +107,26 @@ public class PrincipalController extends Controller implements Initializable {
         @FXML
         void aceptarAction(ActionEvent event) throws Exception{
                 Opciones opcion = opcionesBox.getSelectionModel().getSelectedItem();
-                Usuario usuario = tblContactos.getSelectionModel().getSelectedItem();
-                super.setUsuarioSelected(usuario);
-
-                if (opcion == Opciones.ELIMINAR) {
-                        app.gestor.eliminarUsuario(usuario);
-                } else if (opcion == Opciones.EDITAR) {
+                if (opcion == Opciones.AGREGAR) {
                         app.openContactoView();
                         usuarios.setAll(app.gestor.getListaUsuarios());
-                        tblContactos.refresh();
-                } else if (opcion == Opciones.AGREGAR) {
-                        app.openContactoView();
-                        usuarios.setAll(app.gestor.getListaUsuarios());
-                        tblContactos.refresh();
+                        tblContactos.setItems(usuarios);
+                } else if (opcion == Opciones.ELIMINAR || opcion == Opciones.EDITAR) {
+                        Usuario usuario = tblContactos.getSelectionModel().getSelectedItem();
+                        super.setUsuarioSelected(usuario);
+                        if (usuario != null) {
+                                if (opcion == Opciones.ELIMINAR) {
+                                        app.gestor.eliminarUsuario(usuario);
+                                } else {
+                                        app.openContactoView();
+                                        usuarios.setAll(app.gestor.getListaUsuarios());
+                                        tblContactos.setItems(usuarios);
+                                }
+                        } else {
+                                super.mostrarAlerta("Debe seleccionar un contacto", Alert.AlertType.ERROR);
+                        }
                 } else {
-                        super.mostrarAlerta("Debe seleccionar una opción de contacto.", Alert.AlertType.ERROR);
+                        super.mostrarAlerta("Debe seleccionar un opcion.", Alert.AlertType.ERROR);
                 }
         }
 
