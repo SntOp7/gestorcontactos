@@ -109,7 +109,16 @@ public class PrincipalController extends Controller implements Initializable {
 
         @FXML
         void aceptarAction(ActionEvent event) {
+                Opciones seleccion = opcionesBox.getValue();
 
+                if (seleccion == Opciones.AGREGAR) {
+                        try {
+                                app.openContactoView();
+                        } catch (Exception e) {
+                                e.printStackTrace(); // ← Imprime el error exacto en la consola
+                                mostrarAlerta("No se pudo abrir la vista de contacto", Alert.AlertType.ERROR);
+                        }
+                }
         }
 
         @FXML
@@ -129,4 +138,6 @@ public class PrincipalController extends Controller implements Initializable {
                         mostrarAlerta("No se pudo cargar la imagen", Alert.AlertType.ERROR);
                 }
         }
+
+
 }

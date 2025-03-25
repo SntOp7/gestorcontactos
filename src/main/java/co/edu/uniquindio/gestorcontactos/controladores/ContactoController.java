@@ -10,10 +10,13 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.Setter;
 
-import java.awt.event.ActionEvent;
+import javafx.event.ActionEvent;
+
+import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -50,7 +53,6 @@ public class ContactoController extends Controller implements Initializable {
     @Setter
     private App app;
 
-    
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,6 +61,9 @@ public class ContactoController extends Controller implements Initializable {
     }
 
     private void cargarData() {
+        if (app == null || app.getPrincipalController() == null) {
+            return;
+        }
         Usuario usuario = app.getPrincipalController().getUsuarioSelected();
         if (usuario != null) {
             nombretxt.setText(usuario.getNombre());
@@ -71,7 +76,25 @@ public class ContactoController extends Controller implements Initializable {
 
     @FXML
     void perfilButtonAction(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Seleccionar imagen de perfil");
 
+        // Filtro para permitir solo imágenes
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+
+        // Mostrar el diálogo de selección de archivo
+        File archivoSeleccionado = fileChooser.showOpenDialog(null);
+
+        if (archivoSeleccionado != null) {
+            try {
+                Image imagenSeleccionada = new Image(archivoSeleccionado.toURI().toString());
+                imagenContacto.setImage(imagenSeleccionada);
+            } catch (Exception e) {
+                mostrarAlerta("No se pudo cargar la imagen seleccionada", Alert.AlertType.ERROR);
+            }
+        }
     }
 
     @FXML
