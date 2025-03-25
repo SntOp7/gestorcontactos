@@ -75,7 +75,8 @@ public class PrincipalController extends Controller implements Initializable {
                 initData();
                 initTable();
                 seleccionarUsuario();
-                cargarImagen();
+                cargarImagen("/imagenes/informacion-del-contacto.png", busquedaImagen);
+
 
         }
 
@@ -119,16 +120,5 @@ public class PrincipalController extends Controller implements Initializable {
 
         }
 
-        private void cargarImagen() {
-                try {
-                        URL imageUrl = getClass().getResource("/imagenes/informacion-del-contacto.png");
-                        if (imageUrl == null) {
-                                super.mostrarAlerta("No se encontró la imagen", Alert.AlertType.ERROR);
-                        }
-                        Image img = new Image(imageUrl.toExternalForm());
-                        busquedaImagen.setImage(img);
-                } catch (Exception e) {
-                        super.mostrarAlerta("No se pudo cargar la imagen", Alert.AlertType.ERROR);
-                }
-        }
+
 }

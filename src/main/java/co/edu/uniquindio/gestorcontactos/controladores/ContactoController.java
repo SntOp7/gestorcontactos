@@ -55,7 +55,7 @@ public class ContactoController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cargarData();
-        cargarImagen();
+        cargarImagen("/imagenes/contacto-3d.png", imagenContacto);
     }
 
     private void cargarData() {
@@ -120,24 +120,13 @@ public class ContactoController extends Controller implements Initializable {
     }
 
 
-    private void cargarImagen() {
-        try {
-            URL imageUrl = getClass().getResource("/imagenes/contacto-3d.png");
-            if (imageUrl == null) {
-                super.mostrarAlerta("No se encontró la imagen", Alert.AlertType.ERROR);
-            }
-    
-            Image img = new Image(imageUrl.toExternalForm());
-            imagenContacto.setImage(img);
-        } catch (Exception e) {
-            super.mostrarAlerta("No se pudo cargar la imagen", Alert.AlertType.ERROR);
-        }
-    }
-    
 
 
-    
-    
+
+
+
+
+
 
 }
 
