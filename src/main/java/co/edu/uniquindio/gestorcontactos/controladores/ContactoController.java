@@ -97,13 +97,20 @@ public class ContactoController extends Controller implements Initializable {
         Usuario usuario = app.getPrincipalController().getUsuarioSelected();
         if (usuario != null) {
             editarUsuario(usuario);
+            cerrarView();
         } else {
             agregarUsuario();
+            cerrarView();
         }
+
     }
 
     @FXML
     void cancelarButtonAction(ActionEvent event) {
+        cerrarView();
+    }
+
+    private void cerrarView() {
         Stage stage = (Stage) cancelarButton.getScene().getWindow();
         stage.close();
     }
