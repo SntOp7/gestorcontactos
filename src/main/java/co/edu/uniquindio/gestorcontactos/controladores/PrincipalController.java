@@ -75,8 +75,6 @@ public class PrincipalController extends Controller implements Initializable {
                 initData();
                 initTable();
                 seleccionarUsuario();
-                cargarImagen();
-
         }
 
         private void initData() {
@@ -115,18 +113,5 @@ public class PrincipalController extends Controller implements Initializable {
         @FXML
         void buscarAction(ActionEvent event) {
 
-        }
-
-        private void cargarImagen() {
-                try {
-                        URL imageUrl = getClass().getResource("/imagenes/informacion-del-contacto.png");
-                        if (imageUrl == null) {
-                                throw new Exception("No se encontró la imagen");
-                        }
-                        Image img = new Image(imageUrl.toExternalForm());
-                        busquedaImagen.setImage(img);
-                } catch (Exception e) {
-                        mostrarAlerta("No se pudo cargar la imagen", Alert.AlertType.ERROR);
-                }
         }
 }

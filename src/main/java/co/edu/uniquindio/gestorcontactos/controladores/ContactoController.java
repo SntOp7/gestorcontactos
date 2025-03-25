@@ -78,15 +78,10 @@ public class ContactoController extends Controller implements Initializable {
     void perfilButtonAction(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleccionar imagen de perfil");
-
-        // Filtro para permitir solo imágenes
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg", "*.gif")
         );
-
-        // Mostrar el diálogo de selección de archivo
         File archivoSeleccionado = fileChooser.showOpenDialog(null);
-
         if (archivoSeleccionado != null) {
             try {
                 Image imagenSeleccionada = new Image(archivoSeleccionado.toURI().toString());
@@ -144,16 +139,6 @@ public class ContactoController extends Controller implements Initializable {
             
         }
     }
-
-
-
-
-
-
-
-
-
-
 }
 
 
