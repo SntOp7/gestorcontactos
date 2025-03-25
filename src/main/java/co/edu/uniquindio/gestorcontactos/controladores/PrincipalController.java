@@ -83,7 +83,6 @@ public class PrincipalController extends Controller implements Initializable {
                 }
                 filtrados.add(Filtrado.NOMBRE);
                 filtrados.add(Filtrado.TELEFONO);
-                filtrados.add(Filtrado.NINGUNO);
                 opciones.add(Opciones.AGREGAR);
                 opciones.add(Opciones.ELIMINAR);
                 opciones.add(Opciones.EDITAR);
@@ -122,7 +121,7 @@ public class PrincipalController extends Controller implements Initializable {
                         usuarios.setAll(app.gestor.getListaUsuarios());
                         tblContactos.refresh();
                 } else {
-                        super.mostrarAlerta("Debe seleccionar una opción de contacto", Alert.AlertType.ERROR);
+                        super.mostrarAlerta("Debe seleccionar una opción de contacto.", Alert.AlertType.ERROR);
                 }
         }
 
@@ -136,6 +135,10 @@ public class PrincipalController extends Controller implements Initializable {
                 } else if (filtrado == Filtrado.TELEFONO) {
                        usuario = app.gestor.buscarUsuarioApellido(argumento);
                        tblContactos.getSelectionModel().select(usuario);
+                } else if (filtrado == null) {
+                        super.mostrarAlerta("Debe seleccionar un filtrado.", Alert.AlertType.ERROR);
+                } else if (usuario == null) {
+                        super.mostrarAlerta("No se encontro el usuario.", Alert.AlertType.ERROR);
                 }
         }
 }
