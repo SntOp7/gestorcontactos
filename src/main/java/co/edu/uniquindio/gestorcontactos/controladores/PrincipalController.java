@@ -110,6 +110,8 @@ public class PrincipalController extends Controller implements Initializable {
         @FXML
         void aceptarAction(ActionEvent event) {
 
+
+
         }
 
         @FXML
@@ -121,12 +123,12 @@ public class PrincipalController extends Controller implements Initializable {
                 try {
                         URL imageUrl = getClass().getResource("/imagenes/informacion-del-contacto.png");
                         if (imageUrl == null) {
-                                throw new Exception("No se encontró la imagen");
+                                super.mostrarAlerta("No se encontró la imagen", Alert.AlertType.ERROR);
                         }
                         Image img = new Image(imageUrl.toExternalForm());
                         busquedaImagen.setImage(img);
                 } catch (Exception e) {
-                        mostrarAlerta("No se pudo cargar la imagen", Alert.AlertType.ERROR);
+                        super.mostrarAlerta("No se pudo cargar la imagen", Alert.AlertType.ERROR);
                 }
         }
 }
