@@ -52,7 +52,7 @@ public class App extends Application {
         iniciarView(contactoStage, contactoController, loader);
     }
 
-    /*public void iniciarView(Stage stage, Controller controller, FXMLLoader loader) throws Exception {
+    /*public      void iniciarView(Stage stage, Controller controller, FXMLLoader loader) throws Exception {
         Parent root = loader.load();
         controller = loader.getController();
         controller.setApp(this);
