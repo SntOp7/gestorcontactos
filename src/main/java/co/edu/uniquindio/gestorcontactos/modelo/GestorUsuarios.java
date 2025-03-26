@@ -29,6 +29,7 @@ public class GestorUsuarios {
         confirmarUsuario(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil);
         Usuario usuario = new Usuario(nombre, apellido, telefono, fechaCumpleanios, correo,rutaImagenPerfil);
         listaUsuarios.add(usuario);
+
     }
 
     /**
@@ -105,18 +106,41 @@ public class GestorUsuarios {
     /**
      * Edita los datos de un usuario existente en la lista.
      *
-     * @param usuario Usuario a editar.
+     * @param usuarioEditado Usuario a editar.
      * @throws NullPointerException Si el usuario es nulo.
      * @throws Exception Si el usuario no existe en la lista.
      * @throws IllegalArgumentException Si algún campo obligatorio del usuario es nulo o vacío.
      */
-    public void editarUsuario(Usuario usuario) throws Exception {
-        if (usuario == null) {
+    public void editarUsuario(Usuario usuarioEditado) throws Exception {
+        if (usuarioEditado == null) {
             throw new NullPointerException("El usuario no puede ser nulo.");
         }
-        confirmarUsuario(usuario.getNombre(), usuario.getApellido(), usuario.getTelefono(), usuario.getFechaCumpleanios(), usuario.getCorreo(), usuario.getRutaImagenPerfil());
-        listaUsuarios.set(listaUsuarios.indexOf(usuario), usuario);
+
+        // Buscar el usuario en la lista por teléfono (o por otra clave única)
+        Usuario usuarioExistente = buscarUsuarioTelefono(usuarioEditado.getTelefono());
+
+        if (usuarioExistente == null) {
+            throw new Exception("El usuario no existe en la lista.");
+        }
+
+        // Validar que los nuevos datos sean correctos
+        confirmarUsuario(
+                usuarioEditado.getNombre(),
+                usuarioEditado.getApellido(),
+                usuarioEditado.getTelefono(),
+                usuarioEditado.getFechaCumpleanios(),
+                usuarioEditado.getCorreo(),
+                usuarioEditado.getRutaImagenPerfil()
+        );
+
+        // Actualizar los datos del usuario encontrado en la lista
+        usuarioExistente.setNombre(usuarioEditado.getNombre());
+        usuarioExistente.setApellido(usuarioEditado.getApellido());
+        usuarioExistente.setFechaCumpleanios(usuarioEditado.getFechaCumpleanios());
+        usuarioExistente.setCorreo(usuarioEditado.getCorreo());
+        usuarioExistente.setRutaImagenPerfil(usuarioEditado.getRutaImagenPerfil());
     }
+
 
     /**
      * Elimina un usuario de la lista.
