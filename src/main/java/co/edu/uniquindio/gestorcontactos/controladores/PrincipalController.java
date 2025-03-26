@@ -128,9 +128,14 @@ public class PrincipalController extends Controller implements Initializable {
         }
 
         public void actualizarTabla() {
-                usuarios.setAll(app.gestor.getListaUsuarios());
-                tblContactos.setItems(usuarios);
+                if (app != null && app.gestor != null) {
+                        usuarios.setAll(FXCollections.observableArrayList(app.gestor.getListaUsuarios()));
+                        tblContactos.setItems(usuarios);
+                        tblContactos.refresh();
+                }
         }
+
+
 
         @FXML
         void buscarAction(MouseEvent event) {
