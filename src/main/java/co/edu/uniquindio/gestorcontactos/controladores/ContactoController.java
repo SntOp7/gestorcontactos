@@ -56,22 +56,16 @@ public class ContactoController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        cargarData();
         cargarImagen("/imagenes/contacto-3d.png", imagenContacto);
     }
 
     private void cargarData() {
-        if (app == null || app.getPrincipalController() == null) {
-            return;
-        }
-        Usuario usuario = app.getPrincipalController().getUsuarioSelected();
-        if (usuario != null) {
-            nombretxt.setText(usuario.getNombre());
-            apellidotxt.setText(usuario.getApellido());
-            telefonotxt.setText(usuario.getTelefono());
-            cumpleaniosDate.setValue(usuario.getFechaCumpleanios());
-            emailtxt.setText(usuario.getCorreo());
-        }
+        Usuario usuario = super.getUsuarioSelected();
+        nombretxt.setText(usuario.getNombre());
+        apellidotxt.setText(usuario.getApellido());
+        telefonotxt.setText(usuario.getTelefono());
+        cumpleaniosDate.setValue(usuario.getFechaCumpleanios());
+        emailtxt.setText(usuario.getCorreo());
     }
 
     @FXML
@@ -94,7 +88,7 @@ public class ContactoController extends Controller implements Initializable {
 
     @FXML
     void confirmarButtonAction(ActionEvent event) {
-        Usuario usuario = app.getPrincipalController().getUsuarioSelected();
+        Usuario usuario = super.getUsuarioSelected();
         if (usuario != null) {
             editarUsuario(usuario);
             cerrarView();
@@ -102,7 +96,6 @@ public class ContactoController extends Controller implements Initializable {
             agregarUsuario();
             cerrarView();
         }
-
     }
 
     @FXML
@@ -116,6 +109,7 @@ public class ContactoController extends Controller implements Initializable {
     }
 
     private void editarUsuario(Usuario usuario) {
+        cargarData();
         String nombre = nombretxt.getText();
         String apellido = apellidotxt.getText();
         String telefono = telefonotxt.getText();
@@ -125,7 +119,7 @@ public class ContactoController extends Controller implements Initializable {
         Usuario aux = new Usuario(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil);
         try {
             app.gestor.editarUsuario(aux);
-            super.mostrarAlerta("Se ha editado el contacto", Alert.AlertType.INFORMATION);
+            super.mostrarAlerta("Se ha editado el contacto.", Alert.AlertType.INFORMATION);
         } catch (Exception e) {
             super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
         }
@@ -143,7 +137,6 @@ public class ContactoController extends Controller implements Initializable {
             super.mostrarAlerta("Se ha agregado el contacto.", Alert.AlertType.INFORMATION);
         } catch (Exception e) {
             super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
-            
         }
     }
 }

@@ -1,5 +1,6 @@
 package co.edu.uniquindio.gestorcontactos.modelo;
 
+import javafx.scene.control.Alert;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -44,7 +45,7 @@ public class GestorUsuarios {
             throw new IllegalArgumentException("Formato del nombre no es valido");
         }
         return listaUsuarios.stream()
-                .filter(usuario -> usuario.getNombre().equals(nombre))
+                .filter(usuario -> usuario.getNombre().equalsIgnoreCase(nombre))
                 .findFirst()
                 .orElse(null);
     }
@@ -57,8 +58,27 @@ public class GestorUsuarios {
      * @throws IllegalArgumentException Si el apellido es nulo o vacío.
      */
     public Usuario buscarUsuarioApellido(String apellido) {
+        if (apellido == null || apellido.isEmpty()) {
+            throw new IllegalArgumentException("El apellido no puede ser vacio");
+        } else if (!apellido.matches("[A-Za-zÁÉÍÓÚáéíóúñÑüÜ]+( [A-Za-zÁÉÍÓÚáéíóúñÑüÜ]+)*")) {
+            throw new IllegalArgumentException("Formato del apellido no es valido");
+        }
         return listaUsuarios.stream()
-                .filter(usuario -> usuario.getApellido().equals(apellido))
+                .filter(usuario -> usuario.getApellido().equalsIgnoreCase(apellido))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public Usuario buscarUsuarioNombreApellido(String nombreCompleto) {
+        if (nombreCompleto == null || nombreCompleto.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre completo no puede estar vacío.");
+        }
+        String[] palabras = nombreCompleto.trim().split("\\s+");
+        String nombre = palabras[0];
+        String apellido = palabras[1];
+        return listaUsuarios.stream()
+                .filter(usuario -> usuario.getNombre().equalsIgnoreCase(nombre) &&
+                        usuario.getApellido().equalsIgnoreCase(apellido))
                 .findFirst()
                 .orElse(null);
     }
@@ -72,7 +92,7 @@ public class GestorUsuarios {
      */
     public Usuario buscarUsuarioTelefono(String telefono) {
         if (telefono == null || telefono.isEmpty()) {
-            throw new IllegalArgumentException("El nombre no puede ser vacio");
+            throw new IllegalArgumentException("El telefono no puede ser vacio");
         } else if (!telefono.matches("3\\d{9}")) {
             throw new IllegalArgumentException("Formato del telefono no es valido");
         }

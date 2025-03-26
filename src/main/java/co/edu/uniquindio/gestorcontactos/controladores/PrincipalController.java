@@ -101,9 +101,8 @@ public class PrincipalController extends Controller implements Initializable {
         }
 
         private void seleccionarUsuario() {
-                tblContactos.setOnMouseClicked(e -> setUsuarioSelected(tblContactos.getSelectionModel().getSelectedItem()));
+                tblContactos.setOnMouseClicked(e -> super.setUsuarioSelected(tblContactos.getSelectionModel().getSelectedItem()));
         }
-
 
         @FXML
         void aceptarAction(ActionEvent event) throws Exception{
@@ -111,89 +110,57 @@ public class PrincipalController extends Controller implements Initializable {
                 if (opcion == Opciones.AGREGAR) {
                         app.openContactoView();
                 } else if (opcion == Opciones.ELIMINAR || opcion == Opciones.EDITAR) {
-                        Usuario usuario = tblContactos.getSelectionModel().getSelectedItem();
-                        super.setUsuarioSelected(usuario);
+                        seleccionarUsuario();
+                        Usuario usuario = super.getUsuarioSelected();
                         if (usuario != null) {
                                 if (opcion == Opciones.ELIMINAR) {
                                         app.gestor.eliminarUsuario(usuario);
+                                        super.mostrarAlerta("Se ha eliminado el contacto.", Alert.AlertType.INFORMATION);
                                 } else {
                                         app.openContactoView();
                                 }
                         } else {
-                                super.mostrarAlerta("Debe seleccionar un contacto", Alert.AlertType.ERROR);
+                                super.mostrarAlerta("Debe seleccionar un contacto.", Alert.AlertType.ERROR);
                         }
                 } else {
-                        super.mostrarAlerta("Debe seleccionar un opcion.", Alert.AlertType.ERROR);
+                        super.mostrarAlerta("Debe seleccionar una opcion de contacto.", Alert.AlertType.ERROR);
                 }
+        }
+
+        public void actualizarTabla() {
                 usuarios.setAll(app.gestor.getListaUsuarios());
                 tblContactos.setItems(usuarios);
         }
 
-        /*@FXML
-        void buscarAction(ActionEvent event) {
-                Filtrado filtrado = filtrarBox.getSelectionModel().getSelectedItem();
-                String argumento = buscarContactoTxt.getText();
-                Usuario usuario = null;
-                if (filtrado == Filtrado.NOMBRE) {
-
-                } else if (filtrado == Filtrado.TELEFONO) {
-                       usuario = app.gestor.buscarUsuarioApellido(argumento);
-                       tblContactos.getSelectionModel().select(usuario);
-                } else if (filtrado == null) {
-                        super.mostrarAlerta("Debe seleccionar un filtrado.", Alert.AlertType.ERROR);
-                } else if (usuario == null) {
-                        super.mostrarAlerta("No se encontro el usuario.", Alert.AlertType.ERROR);
-                }
-        }*/
-
         @FXML
         void buscarAction(MouseEvent event) {
-                Filtrado filtrado = filtrarBox.getSelectionModel().getSelectedItem(); // Obtener el tipo de filtro
-                String argumento = buscarContactoTxt.getText().trim(); // Obtener el texto ingresado
-
-                if (argumento.isEmpty()) {
-                        super.mostrarAlerta("Debe ingresar un nombre, apellido o teléfono.", Alert.AlertType.ERROR);
-                        return;
-                }
-
+                Filtrado filtrado = filtrarBox.getSelectionModel().getSelectedItem();
+                String argumento = buscarContactoTxt.getText().trim();
                 if (filtrado == null) {
-                        super.mostrarAlerta("Debe seleccionar un método de filtrado.", Alert.AlertType.ERROR);
-                        return;
+                        super.mostrarAlerta("Debe seleccionar un filtro para la busqueda.", Alert.AlertType.ERROR);
                 }
-
-                buscarUsuario(filtrado, app.gestor);
+                buscarUsuario(argumento, filtrado, app.gestor);
         }
 
-        public void buscarUsuario(Filtrado filtrado, GestorUsuarios gestorUsuarios) {
+        public void buscarUsuario(String argumento, Filtrado filtrado, GestorUsuarios gestorUsuarios) {
                 try {
-                        String filtro = buscarContactoTxt.getText().trim();
-
-                        if (filtro.isEmpty()) {
-                                super.mostrarAlerta("Ingrese un nombre, apellido o teléfono.", Alert.AlertType.WARNING);
-                                return;
-                        }
-
                         Usuario usuarioEncontrado = null;
-
                         if (filtrado == Filtrado.TELEFONO) {
-                                if (!filtro.matches("\\d+")) {
-                                        super.mostrarAlerta("El teléfono debe contener solo números.", Alert.AlertType.ERROR);
-                                        return;
-                                }
-                                usuarioEncontrado = gestorUsuarios.buscarUsuarioTelefono(filtro);
+                                usuarioEncontrado = gestorUsuarios.buscarUsuarioTelefono(argumento);
                         } else if (filtrado == Filtrado.NOMBRE) {
-                                String[] palabras = filtro.split("\\s+");
-
+                                String[] palabras = argumento.split("\\s+");
                                 if (palabras.length == 1) {
-                                        usuarioEncontrado = gestorUsuarios.buscarUsuarioNombre(filtro);
+                                        usuarioEncontrado = gestorUsuarios.buscarUsuarioNombre(argumento);
+                                        if (usuarioEncontrado == null) {
+                                                usuarioEncontrado = gestorUsuarios.buscarUsuarioApellido(argumento);
+                                        }
                                 } else if (palabras.length == 2) {
-                                        usuarioEncontrado = gestorUsuarios.buscarUsuarioApellido(palabras[1]);
+                                        usuarioEncontrado = gestorUsuarios.buscarUsuarioNombreApellido(argumento);
                                 } else {
                                         super.mostrarAlerta("Ingrese solo un nombre o un apellido.", Alert.AlertType.WARNING);
                                         return;
                                 }
                         }
-
                         if (usuarioEncontrado != null) {
                                 tblContactos.getSelectionModel().clearSelection();
                                 tblContactos.getSelectionModel().select(usuarioEncontrado);
@@ -203,8 +170,7 @@ public class PrincipalController extends Controller implements Initializable {
                         }
 
                 } catch (IllegalArgumentException e) {
-                        super.mostrarAlerta("Error: " + e.getMessage(), Alert.AlertType.ERROR);
+                        super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
                 }
-
         }
 }
