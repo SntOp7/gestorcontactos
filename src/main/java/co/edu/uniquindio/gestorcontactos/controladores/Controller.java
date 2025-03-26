@@ -31,37 +31,21 @@ public abstract class Controller {
 
 
     public void cargarImagen(String imagePath, ImageView imageView) {
-        class Estado {
-            static boolean primeraEjecucion = true;
+        if (imagePath == null || imageView == null) {
+            return;
         }
 
-        try {
-            if (imagePath.startsWith("/") || imagePath.startsWith("resources/")) {
-                URL imageUrl = getClass().getResource(imagePath);
-                if (imageUrl == null) {
-                    if (!Estado.primeraEjecucion) {
-                        mostrarAlerta("No se encontró la imagen en el classpath: " + imagePath, Alert.AlertType.ERROR);
-                    }
-                } else {
-                    imageView.setImage(new Image(imageUrl.toExternalForm()));
-                }
-            } else {
-                File file = new File(imagePath);
-                if (!file.exists()) {
-                    if (!Estado.primeraEjecucion) {
-                        mostrarAlerta("No se encontró la imagen en el sistema de archivos: " + imagePath, Alert.AlertType.ERROR);
-                    }
-                } else {
-                    imageView.setImage(new Image(file.toURI().toString()));
-                }
+        if (imagePath.startsWith("/") || imagePath.startsWith("resources/")) {
+            URL imageUrl = getClass().getResource(imagePath);
+            if (imageUrl != null) {
+                imageView.setImage(new Image(imageUrl.toExternalForm()));
             }
-        } catch (Exception e) {
-            if (!Estado.primeraEjecucion) {
-                mostrarAlerta("No se pudo cargar la imagen: " + imagePath, Alert.AlertType.ERROR);
+        } else {
+            File file = new File(imagePath);
+            if (file.exists()) {
+                imageView.setImage(new Image(file.toURI().toString()));
             }
         }
-
-        Estado.primeraEjecucion = false;
     }
 
 
