@@ -116,14 +116,13 @@ public class GestorUsuarios {
             throw new NullPointerException("El usuario no puede ser nulo.");
         }
 
-        // Buscar el usuario en la lista por teléfono (o por otra clave única)
+
         Usuario usuarioExistente = buscarUsuarioTelefono(usuarioEditado.getTelefono());
 
         if (usuarioExistente == null) {
             throw new Exception("El usuario no existe en la lista.");
         }
 
-        // Validar que los nuevos datos sean correctos
         confirmarUsuario(
                 usuarioEditado.getNombre(),
                 usuarioEditado.getApellido(),
@@ -133,12 +132,12 @@ public class GestorUsuarios {
                 usuarioEditado.getRutaImagenPerfil()
         );
 
-        // Actualizar los datos del usuario encontrado en la lista
         usuarioExistente.setNombre(usuarioEditado.getNombre());
         usuarioExistente.setApellido(usuarioEditado.getApellido());
         usuarioExistente.setFechaCumpleanios(usuarioEditado.getFechaCumpleanios());
         usuarioExistente.setCorreo(usuarioEditado.getCorreo());
         usuarioExistente.setRutaImagenPerfil(usuarioEditado.getRutaImagenPerfil());
+
     }
 
 

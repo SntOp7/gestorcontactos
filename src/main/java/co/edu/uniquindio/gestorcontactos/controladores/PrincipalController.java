@@ -186,4 +186,10 @@ public class PrincipalController extends Controller implements Initializable {
                         super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
                 }
         }
+
+
+        @FXML
+        private void observarContactoAction(ActionEvent event){
+                actualizarTabla();
+        }
 }

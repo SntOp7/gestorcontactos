@@ -13,15 +13,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="834.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.gestorcontactos.controladores.PrincipalController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="834.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.gestorcontactos.controladores.PrincipalController">
    <children>
       <Text layoutX="208.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text layoutX="332.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contacto ">
+      <Text layoutX="329.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contacto ">
          <font>
             <Font name="Berlin Sans FB" size="48.0" />
          </font>
       </Text>
-      <TextField fx:id="buscarContactoTxt" alignment="CENTER" layoutX="295.0" layoutY="86.0" promptText="Buscar Contacto" style="-fx-background-color: #FFFFFF;">
+      <TextField fx:id="buscarContactoTxt" alignment="CENTER" layoutX="299.0" layoutY="62.0" promptText="Buscar Contacto" style="-fx-background-color: #FFFFFF;">
          <font>
             <Font name="Berlin Sans FB" size="15.0" />
          </font></TextField>
@@ -35,12 +35,13 @@
         </columns>
       </TableView>
       <ComboBox fx:id="filtrarBox" layoutX="343.0" layoutY="357.0" prefWidth="150.0" promptText="Filtrar" style="-fx-background-color: #8A9597; -fx-background-radius: 25px;" />
-      <ComboBox fx:id="opcionesBox" layoutX="306.0" layoutY="409.0" prefHeight="31.0" prefWidth="216.0" promptText="Opciones de Contactos" style="-fx-background-color: #93AAA2; -fx-border-radius: 50px; -fx-border-width: 2px; -fx-background-radius: 50px;" />
-      <Button fx:id="aceptarButton" layoutX="381.0" layoutY="456.0" mnemonicParsing="false" onAction="#aceptarAction" style="-fx-background-color: #008f39; -fx-border-radius: 50px; -fx-border-width: 2px; -fx-background-radius: 50px;" text="Aceptar" />
+      <ComboBox fx:id="opcionesBox" layoutX="307.0" layoutY="405.0" prefHeight="31.0" prefWidth="216.0" promptText="Opciones de Contactos" style="-fx-background-color: #93AAA2; -fx-border-radius: 50px; -fx-border-width: 2px; -fx-background-radius: 50px;" />
+      <Button fx:id="aceptarButton" layoutX="381.0" layoutY="451.0" mnemonicParsing="false" onAction="#aceptarAction" style="-fx-background-color: #008f39; -fx-border-radius: 50px; -fx-border-width: 2px; -fx-background-radius: 50px;" text="Aceptar" />
       <ImageView fitHeight="31.0" fitWidth="39.0" layoutX="474.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="busquedaImagen" fitHeight="40.0" fitWidth="39.0" layoutX="488.0" layoutY="80.0" onMouseClicked="#buscarAction" pickOnBounds="true">
+      <ImageView fx:id="busquedaImagen" fitHeight="40.0" fitWidth="39.0" layoutX="494.0" layoutY="56.0" onMouseClicked="#buscarAction" pickOnBounds="true">
          <image>
             <Image url="@imagenes/informacion-del-contacto.png" />
          </image></ImageView>
+      <Button fx:id="botonObservarContacto" layoutX="365.0" layoutY="100.0" mnemonicParsing="false" onAction="#observarContactoAction" style="-fx-background-color: #82BBC5; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-width: 2px;" text="Ver Contactos" />
    </children>
 </AnchorPane>
