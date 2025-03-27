@@ -87,6 +87,7 @@ public class PrincipalController extends Controller implements Initializable {
                 opciones.add(Opciones.AGREGAR);
                 opciones.add(Opciones.ELIMINAR);
                 opciones.add(Opciones.EDITAR);
+                opciones.add(Opciones.OBSERVAR);
                 opcionesBox.setItems(opciones);
                 filtrarBox.setItems(filtrados);
                 tblContactos.setItems(usuarios);
@@ -105,8 +106,9 @@ public class PrincipalController extends Controller implements Initializable {
         }
 
         @FXML
-        void aceptarAction(ActionEvent event) throws Exception{
+        void aceptarAction(ActionEvent event) throws Exception {
                 Opciones opcion = opcionesBox.getSelectionModel().getSelectedItem();
+
                 if (opcion == Opciones.AGREGAR) {
                         app.openContactoView();
                 } else if (opcion == Opciones.ELIMINAR || opcion == Opciones.EDITAR) {
@@ -122,10 +124,16 @@ public class PrincipalController extends Controller implements Initializable {
                         } else {
                                 super.mostrarAlerta("Debe seleccionar un contacto.", Alert.AlertType.ERROR);
                         }
+                } else if (opcion == Opciones.OBSERVAR) {
+
+                        actualizarTabla();
                 } else {
-                        super.mostrarAlerta("Debe seleccionar una opcion de contacto.", Alert.AlertType.ERROR);
+                        super.mostrarAlerta("Debe seleccionar una opción de contacto.", Alert.AlertType.ERROR);
                 }
+
+                actualizarTabla();
         }
+
 
         public void actualizarTabla() {
                 if (app != null && app.gestor != null) {
