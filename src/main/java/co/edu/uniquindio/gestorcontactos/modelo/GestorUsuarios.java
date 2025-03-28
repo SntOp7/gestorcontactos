@@ -113,32 +113,26 @@ public class GestorUsuarios {
      */
     public void editarUsuario(Usuario usuarioEditado) throws Exception {
         if (usuarioEditado == null) {
-            throw new NullPointerException("El usuario no puede ser nulo.");
+            throw new NullPointerException("El usuario a editar no puede ser nulo.");
         }
 
 
-        Usuario usuarioExistente = buscarUsuarioTelefono(usuarioEditado.getTelefono());
+        Usuario usuarioOriginal = listaUsuarios.stream()
+                .filter(u -> u.getTelefono().equals(usuarioEditado.getTelefono()))
+                .findFirst()
+                .orElseThrow(() -> new Exception("El usuario a editar no existe en la lista."));
 
-        if (usuarioExistente == null) {
-            throw new Exception("El usuario no existe en la lista.");
-        }
 
-        confirmarUsuario(
-                usuarioEditado.getNombre(),
-                usuarioEditado.getApellido(),
-                usuarioEditado.getTelefono(),
-                usuarioEditado.getFechaCumpleanios(),
-                usuarioEditado.getCorreo(),
-                usuarioEditado.getRutaImagenPerfil()
-        );
+        confirmarEditarUsuario(usuarioEditado, usuarioOriginal);
 
-        usuarioExistente.setNombre(usuarioEditado.getNombre());
-        usuarioExistente.setApellido(usuarioEditado.getApellido());
-        usuarioExistente.setFechaCumpleanios(usuarioEditado.getFechaCumpleanios());
-        usuarioExistente.setCorreo(usuarioEditado.getCorreo());
-        usuarioExistente.setRutaImagenPerfil(usuarioEditado.getRutaImagenPerfil());
-
+        usuarioOriginal.setNombre(usuarioEditado.getNombre());
+        usuarioOriginal.setApellido(usuarioEditado.getApellido());
+        usuarioOriginal.setFechaCumpleanios(usuarioEditado.getFechaCumpleanios());
+        usuarioOriginal.setCorreo(usuarioEditado.getCorreo());
+        usuarioOriginal.setRutaImagenPerfil(usuarioEditado.getRutaImagenPerfil());
     }
+
+
 
 
     /**
@@ -192,5 +186,41 @@ public class GestorUsuarios {
             throw new IllegalArgumentException("Ya existe un usuario con el mismo nombre y apellido.");
         }
     }
+
+
+
+    public void confirmarEditarUsuario(Usuario usuarioEditado, Usuario usuarioOriginal) throws Exception {
+        if (usuarioEditado == null || usuarioOriginal == null) {
+            throw new NullPointerException("El usuario a editar no puede ser nulo.");
+        }
+
+        if (usuarioEditado.getNombre() == null || usuarioEditado.getNombre().isEmpty()) {
+            throw new IllegalArgumentException("El campo 'nombre' no puede estar vacío.");
+        }
+        if (usuarioEditado.getApellido() == null || usuarioEditado.getApellido().isEmpty()) {
+            throw new IllegalArgumentException("El campo 'apellido' no puede estar vacío.");
+        }
+        if (usuarioEditado.getTelefono() == null || usuarioEditado.getTelefono().isEmpty() || !usuarioEditado.getTelefono().matches("3\\d{9}")) {
+            throw new IllegalArgumentException("El campo 'teléfono' debe empezar por 3 y tener 10 dígitos.");
+        }
+        if (usuarioEditado.getFechaCumpleanios() == null || usuarioEditado.getFechaCumpleanios().isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("La fecha de cumpleaños es inválida.");
+        }
+        if (usuarioEditado.getCorreo() == null || usuarioEditado.getCorreo().isEmpty() || !usuarioEditado.getCorreo().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+            throw new IllegalArgumentException("El campo 'correo' debe ser una dirección válida.");
+        }
+        // Evitar duplicados en nombre y apellido en la edición del usuario(Porque es lo que queremos cambiar)
+        Usuario usuarioExistenteNombreApellido = buscarUsuarioNombreApellido(usuarioEditado.getNombre() + " " + usuarioEditado.getApellido());
+        if (usuarioExistenteNombreApellido != null && !usuarioExistenteNombreApellido.equals(usuarioOriginal)) {
+            throw new IllegalArgumentException("No puede editar y dejar el usuario con el mismo nombre y apellido.");
+        }
+    }
+
+
+
+
+
+
+
 
 }
