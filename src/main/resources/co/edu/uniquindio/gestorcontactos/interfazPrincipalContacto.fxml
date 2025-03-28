@@ -42,6 +42,6 @@
          <image>
             <Image url="@imagenes/informacion-del-contacto.png" />
          </image></ImageView>
-      <Button fx:id="botonObservarContacto" layoutX="365.0" layoutY="100.0" mnemonicParsing="false" onAction="#observarContactoAction" style="-fx-background-color: #82BBC5; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-width: 2px;" text="Ver Contactos" />
+      <Button fx:id="botonObservarContacto" layoutX="359.0" layoutY="100.0" mnemonicParsing="false" onAction="#observarContactoAction" style="-fx-background-color: #82BBC5; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-width: 2px;" text="Ver Contactos" />
    </children>
 </AnchorPane>
