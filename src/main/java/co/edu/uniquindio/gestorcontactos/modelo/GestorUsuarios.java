@@ -209,12 +209,19 @@ public class GestorUsuarios {
         if (usuarioEditado.getCorreo() == null || usuarioEditado.getCorreo().isEmpty() || !usuarioEditado.getCorreo().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
             throw new IllegalArgumentException("El campo 'correo' debe ser una dirección válida.");
         }
-        // Evitar duplicados en nombre y apellido en la edición del usuario(Porque es lo que queremos cambiar)
-        Usuario usuarioExistenteNombreApellido = buscarUsuarioNombreApellido(usuarioEditado.getNombre() + " " + usuarioEditado.getApellido());
-        if (usuarioExistenteNombreApellido != null && !usuarioExistenteNombreApellido.equals(usuarioOriginal)) {
-            throw new IllegalArgumentException("No puede editar y dejar el usuario con el mismo nombre y apellido.");
+
+      
+        boolean nombreApellidoExiste = listaUsuarios.stream()
+                .filter(u -> !u.equals(usuarioOriginal))  // Excluir al usuario original
+                .anyMatch(u -> u.getNombre().equalsIgnoreCase(usuarioEditado.getNombre()) &&
+                        u.getApellido().equalsIgnoreCase(usuarioEditado.getApellido()));
+
+        if (nombreApellidoExiste) {
+            throw new IllegalArgumentException("Ya existe otro usuario con el mismo nombre y apellido.");
         }
     }
+
+
 
 
 
