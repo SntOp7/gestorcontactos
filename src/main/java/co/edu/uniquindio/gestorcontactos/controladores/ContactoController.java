@@ -108,7 +108,7 @@ public class ContactoController extends Controller implements Initializable {
         stage.close();
     }
 
-    private void editarUsuario(Usuario usuario) {
+    private void editarUsuario(Usuario usuarioOriginal) {
         cargarData();
         String nombre = nombretxt.getText();
         String apellido = apellidotxt.getText();
@@ -116,9 +116,12 @@ public class ContactoController extends Controller implements Initializable {
         LocalDate fechaCumpleanios = cumpleaniosDate.getValue();
         String correo = emailtxt.getText();
         String rutaImagenPerfil = imagenContacto.getImage().toString();
-        Usuario aux = new Usuario(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil);
+
+
+        Usuario usuarioEditado = new Usuario(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil);
+
         try {
-            app.gestor.editarUsuario(aux);
+            app.gestor.editarUsuario(usuarioEditado);
             super.mostrarAlerta("Se ha editado el contacto.", Alert.AlertType.INFORMATION);
         } catch (Exception e) {
             super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);

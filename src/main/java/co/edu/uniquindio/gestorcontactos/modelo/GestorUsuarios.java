@@ -116,12 +116,11 @@ public class GestorUsuarios {
             throw new NullPointerException("El usuario a editar no puede ser nulo.");
         }
 
-
+        // Buscar el usuario original por teléfono
         Usuario usuarioOriginal = listaUsuarios.stream()
                 .filter(u -> u.getTelefono().equals(usuarioEditado.getTelefono()))
                 .findFirst()
                 .orElseThrow(() -> new Exception("El usuario a editar no existe en la lista."));
-
 
         confirmarEditarUsuario(usuarioEditado, usuarioOriginal);
 
@@ -130,6 +129,38 @@ public class GestorUsuarios {
         usuarioOriginal.setFechaCumpleanios(usuarioEditado.getFechaCumpleanios());
         usuarioOriginal.setCorreo(usuarioEditado.getCorreo());
         usuarioOriginal.setRutaImagenPerfil(usuarioEditado.getRutaImagenPerfil());
+    }
+
+    public void confirmarEditarUsuario(Usuario usuarioEditado, Usuario usuarioOriginal) throws Exception {
+        if (usuarioEditado == null || usuarioOriginal == null) {
+            throw new NullPointerException("El usuario a editar no puede ser nulo.");
+        }
+
+        if (usuarioEditado.getNombre() == null || usuarioEditado.getNombre().isEmpty()) {
+            throw new IllegalArgumentException("El campo 'nombre' no puede estar vacío.");
+        }
+        if (usuarioEditado.getApellido() == null || usuarioEditado.getApellido().isEmpty()) {
+            throw new IllegalArgumentException("El campo 'apellido' no puede estar vacío.");
+        }
+        if (usuarioEditado.getTelefono() == null || usuarioEditado.getTelefono().isEmpty() || !usuarioEditado.getTelefono().matches("3\\d{9}")) {
+            throw new IllegalArgumentException("El campo 'teléfono' debe empezar por 3 y tener 10 dígitos.");
+        }
+        if (usuarioEditado.getFechaCumpleanios() == null || usuarioEditado.getFechaCumpleanios().isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("La fecha de cumpleaños es inválida.");
+        }
+        if (usuarioEditado.getCorreo() == null || usuarioEditado.getCorreo().isEmpty() || !usuarioEditado.getCorreo().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+            throw new IllegalArgumentException("El campo 'correo' debe ser una dirección válida.");
+        }
+
+        // **Evitar duplicados en nombre y apellido con otros usuarios**
+        boolean nombreApellidoExiste = listaUsuarios.stream()
+                .filter(u -> !u.equals(usuarioOriginal))  // Excluir al usuario original
+                .anyMatch(u -> u.getNombre().equalsIgnoreCase(usuarioEditado.getNombre()) &&
+                        u.getApellido().equalsIgnoreCase(usuarioEditado.getApellido()));
+
+        if (nombreApellidoExiste) {
+            throw new IllegalArgumentException("Ya existe otro usuario con el mismo nombre y apellido.");
+        }
     }
 
 
@@ -189,37 +220,7 @@ public class GestorUsuarios {
 
 
 
-    public void confirmarEditarUsuario(Usuario usuarioEditado, Usuario usuarioOriginal) throws Exception {
-        if (usuarioEditado == null || usuarioOriginal == null) {
-            throw new NullPointerException("El usuario a editar no puede ser nulo.");
-        }
 
-        if (usuarioEditado.getNombre() == null || usuarioEditado.getNombre().isEmpty()) {
-            throw new IllegalArgumentException("El campo 'nombre' no puede estar vacío.");
-        }
-        if (usuarioEditado.getApellido() == null || usuarioEditado.getApellido().isEmpty()) {
-            throw new IllegalArgumentException("El campo 'apellido' no puede estar vacío.");
-        }
-        if (usuarioEditado.getTelefono() == null || usuarioEditado.getTelefono().isEmpty() || !usuarioEditado.getTelefono().matches("3\\d{9}")) {
-            throw new IllegalArgumentException("El campo 'teléfono' debe empezar por 3 y tener 10 dígitos.");
-        }
-        if (usuarioEditado.getFechaCumpleanios() == null || usuarioEditado.getFechaCumpleanios().isAfter(LocalDate.now())) {
-            throw new IllegalArgumentException("La fecha de cumpleaños es inválida.");
-        }
-        if (usuarioEditado.getCorreo() == null || usuarioEditado.getCorreo().isEmpty() || !usuarioEditado.getCorreo().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-            throw new IllegalArgumentException("El campo 'correo' debe ser una dirección válida.");
-        }
-
-      
-        boolean nombreApellidoExiste = listaUsuarios.stream()
-                .filter(u -> !u.equals(usuarioOriginal))  // Excluir al usuario original
-                .anyMatch(u -> u.getNombre().equalsIgnoreCase(usuarioEditado.getNombre()) &&
-                        u.getApellido().equalsIgnoreCase(usuarioEditado.getApellido()));
-
-        if (nombreApellidoExiste) {
-            throw new IllegalArgumentException("Ya existe otro usuario con el mismo nombre y apellido.");
-        }
-    }
 
 
 
