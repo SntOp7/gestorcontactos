@@ -5,7 +5,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="286.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.gestorcontactos.controladores.RepetidoController">
    <children>
       <Text layoutX="119.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ya Hay Un Contacto Con Este Nombre y Apellido " textAlignment="CENTER" wrappingWidth="362.349609375">
