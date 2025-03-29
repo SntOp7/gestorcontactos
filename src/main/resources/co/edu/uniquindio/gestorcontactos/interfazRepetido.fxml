@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="286.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text layoutX="119.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ya Hay Un Contacto Con Este Nombre y Apellido " textAlignment="CENTER" wrappingWidth="362.349609375">
+         <font>
+            <Font name="Berlin Sans FB" size="36.0" />
+         </font>
+      </Text>
+      <Text layoutX="238.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Desea Guardarlo?" />
+      <Button fx:id="reemplazarButton" layoutX="187.0" layoutY="216.0" mnemonicParsing="false" onAction="#reemplazarAction" style="-fx-background-color: #A020F0; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-width: 2px;" text="Reemplazar " />
+      <Button fx:id="cancelarButton" layoutX="321.0" layoutY="216.0" mnemonicParsing="false" onAction="#cancelarAction" style="-fx-background-color: #FF0000; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-width: 2px;" text="Cancelar " />
+   </children>
+</Pane>
