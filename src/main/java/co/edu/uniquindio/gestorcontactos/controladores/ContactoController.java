@@ -121,7 +121,7 @@ public class ContactoController extends Controller implements Initializable {
         Usuario usuarioEditado = new Usuario(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil);
 
         try {
-            app.gestor.editarUsuario(usuarioEditado);
+            gestor.editarUsuario(usuarioEditado);
             super.mostrarAlerta("Se ha editado el contacto.", Alert.AlertType.INFORMATION);
         } catch (Exception e) {
             super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
@@ -136,7 +136,7 @@ public class ContactoController extends Controller implements Initializable {
             String correo = emailtxt.getText();
             String rutaImagenPerfil = imagenContacto.getImage().toString();
         try {
-            app.gestor.crearContacto(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil);
+            gestor.crearContacto(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil);
             super.mostrarAlerta("Se ha agregado el contacto.", Alert.AlertType.INFORMATION);
         } catch (Exception e) {
             super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);

@@ -18,8 +18,6 @@ import java.security.Principal;
 
 public class App extends Application {
 
-    public GestorUsuarios gestor = new GestorUsuarios();
-
     private Stage principalStage;
     private Stage contactoStage;
 

@@ -79,18 +79,14 @@ public class PrincipalController extends Controller implements Initializable {
         }
 
         private void initData() {
-                if (app != null) {
-                        usuarios.addAll(app.gestor.getListaUsuarios());
-                }
                 filtrados.add(Filtrado.NOMBRE);
                 filtrados.add(Filtrado.TELEFONO);
                 opciones.add(Opciones.AGREGAR);
                 opciones.add(Opciones.ELIMINAR);
                 opciones.add(Opciones.EDITAR);
-                opciones.add(Opciones.OBSERVAR);
                 opcionesBox.setItems(opciones);
                 filtrarBox.setItems(filtrados);
-                tblContactos.setItems(usuarios);
+                actualizarTabla();
         }
 
         private void initTable() {
@@ -108,7 +104,6 @@ public class PrincipalController extends Controller implements Initializable {
         @FXML
         void aceptarAction(ActionEvent event) throws Exception {
                 Opciones opcion = opcionesBox.getSelectionModel().getSelectedItem();
-
                 if (opcion == Opciones.AGREGAR) {
                         app.openContactoView();
                 } else if (opcion == Opciones.ELIMINAR || opcion == Opciones.EDITAR) {
@@ -116,7 +111,7 @@ public class PrincipalController extends Controller implements Initializable {
                         Usuario usuario = super.getUsuarioSelected();
                         if (usuario != null) {
                                 if (opcion == Opciones.ELIMINAR) {
-                                        app.gestor.eliminarUsuario(usuario);
+                                        gestor.eliminarUsuario(usuario);
                                         super.mostrarAlerta("Se ha eliminado el contacto.", Alert.AlertType.INFORMATION);
                                 } else {
                                         app.openContactoView();
@@ -124,26 +119,11 @@ public class PrincipalController extends Controller implements Initializable {
                         } else {
                                 super.mostrarAlerta("Debe seleccionar un contacto.", Alert.AlertType.ERROR);
                         }
-                } else if (opcion == Opciones.OBSERVAR) {
-
-                        actualizarTabla();
                 } else {
-                        super.mostrarAlerta("Debe seleccionar una opción de contacto.", Alert.AlertType.ERROR);
+                        super.mostrarAlerta("Debe escoger una opción.", Alert.AlertType.ERROR);
                 }
-
-                actualizarTabla();
+                opcionesBox.setValue(Opciones.OPCIONES);
         }
-
-
-        public void actualizarTabla() {
-                if (app != null && app.gestor != null) {
-                        usuarios.setAll(FXCollections.observableArrayList(app.gestor.getListaUsuarios()));
-                        tblContactos.setItems(usuarios);
-                        tblContactos.refresh();
-                }
-        }
-
-
 
         @FXML
         void buscarAction(MouseEvent event) {
@@ -152,7 +132,7 @@ public class PrincipalController extends Controller implements Initializable {
                 if (filtrado == null) {
                         super.mostrarAlerta("Debe seleccionar un filtro para la busqueda.", Alert.AlertType.ERROR);
                 }
-                buscarUsuario(argumento, filtrado, app.gestor);
+                buscarUsuario(argumento, filtrado, gestor);
         }
 
         public void buscarUsuario(String argumento, Filtrado filtrado, GestorUsuarios gestorUsuarios) {
@@ -185,8 +165,14 @@ public class PrincipalController extends Controller implements Initializable {
                 } catch (IllegalArgumentException e) {
                         super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
                 }
+                filtrarBox.setValue(Filtrado.FILTRAR);
         }
 
+        private void actualizarTabla() {
+                usuarios.setAll(gestor.getListaUsuarios());
+                tblContactos.setItems(usuarios);
+                tblContactos.refresh();
+        }
 
         @FXML
         private void observarContactoAction(ActionEvent event){

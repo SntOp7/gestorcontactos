@@ -1,6 +1,7 @@
 package co.edu.uniquindio.gestorcontactos.controladores;
 
 import co.edu.uniquindio.gestorcontactos.App;
+import co.edu.uniquindio.gestorcontactos.modelo.GestorUsuarios;
 import co.edu.uniquindio.gestorcontactos.modelo.Usuario;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
@@ -15,6 +16,8 @@ public abstract class Controller {
     @Getter
     @Setter
     private Usuario usuarioSelected = null;
+
+    public static GestorUsuarios gestor = new GestorUsuarios();
 
     private App app;
 

@@ -34,8 +34,8 @@
             <TableColumn fx:id="tcCorreo" prefWidth="198.0" text="Correo" />
         </columns>
       </TableView>
-      <ComboBox fx:id="filtrarBox" layoutX="343.0" layoutY="357.0" prefWidth="150.0" promptText="Filtrar" style="-fx-background-color: #8A9597; -fx-background-radius: 25px;" />
-      <ComboBox fx:id="opcionesBox" layoutX="307.0" layoutY="405.0" prefHeight="31.0" prefWidth="216.0" promptText="Opciones de Contactos" style="-fx-background-color: #93AAA2; -fx-border-radius: 50px; -fx-border-width: 2px; -fx-background-radius: 50px;" />
+      <ComboBox fx:id="filtrarBox" layoutX="343.0" layoutY="357.0" prefWidth="150.0" promptText="FILTRAR" style="-fx-background-color: #8A9597; -fx-background-radius: 25px;" />
+      <ComboBox fx:id="opcionesBox" layoutX="307.0" layoutY="405.0" prefHeight="31.0" prefWidth="216.0" promptText="OPCIONES" style="-fx-background-color: #93AAA2; -fx-border-radius: 50px; -fx-border-width: 2px; -fx-background-radius: 50px;" />
       <Button fx:id="aceptarButton" layoutX="381.0" layoutY="451.0" mnemonicParsing="false" onAction="#aceptarAction" style="-fx-background-color: #008f39; -fx-border-radius: 50px; -fx-border-width: 2px; -fx-background-radius: 50px;" text="Aceptar" />
       <ImageView fitHeight="31.0" fitWidth="39.0" layoutX="474.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="busquedaImagen" fitHeight="40.0" fitWidth="39.0" layoutX="494.0" layoutY="56.0" onMouseClicked="#buscarAction" pickOnBounds="true">
