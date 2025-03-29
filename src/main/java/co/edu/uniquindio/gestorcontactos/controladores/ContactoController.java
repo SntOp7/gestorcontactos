@@ -111,20 +111,21 @@ public class ContactoController extends Controller implements Initializable {
         stage.close();
     }
 
-    private void editarUsuario(Usuario usuarioOriginal) {
+    private void editarUsuario(Usuario usuarioSeleccionado) {
         String nombre = nombretxt.getText();
         String apellido = apellidotxt.getText();
         String telefono = telefonotxt.getText();
         LocalDate fechaCumpleanios = cumpleaniosDate.getValue();
         String correo = emailtxt.getText();
         String rutaImagenPerfil = imagenContacto.getImage().toString();
-
-
         Usuario usuarioEditado = new Usuario(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil);
-
         try {
-            gestor.editarUsuario(usuarioEditado);
-            super.mostrarAlerta("Se ha editado el contacto.", Alert.AlertType.INFORMATION);
+            if (!gestor.confirmarEditarUsuario(usuarioEditado)) {
+                gestor.editarUsuario(usuarioSeleccionado, usuarioEditado);
+                super.mostrarAlerta("Se ha editado el contacto.", Alert.AlertType.INFORMATION);
+            } else {
+                
+            }
         } catch (Exception e) {
             super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
         }
@@ -138,8 +139,12 @@ public class ContactoController extends Controller implements Initializable {
             String correo = emailtxt.getText();
             String rutaImagenPerfil = imagenContacto.getImage().toString();
         try {
-            gestor.crearContacto(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil);
-            super.mostrarAlerta("Se ha agregado el contacto.", Alert.AlertType.INFORMATION);
+            if (!gestor.confirmarUsuario(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil)) {
+                gestor.crearContacto(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil);
+                super.mostrarAlerta("Se ha agregado el contacto.", Alert.AlertType.INFORMATION);
+            } else {
+
+            }
         } catch (Exception e) {
             super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
         }

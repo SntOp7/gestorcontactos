@@ -1,6 +1,5 @@
 package co.edu.uniquindio.gestorcontactos.modelo;
 
-import javafx.scene.control.Alert;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,10 +7,11 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
+@Setter
+@Getter
 @NoArgsConstructor
 public class GestorUsuarios {
-    @Getter
-    @Setter
+
     public LinkedList<Usuario> listaUsuarios = new LinkedList<>();
 
     /**
@@ -29,7 +29,6 @@ public class GestorUsuarios {
         confirmarUsuario(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil);
         Usuario usuario = new Usuario(nombre, apellido, telefono, fechaCumpleanios, correo,rutaImagenPerfil);
         listaUsuarios.add(usuario);
-
     }
 
     /**
@@ -111,31 +110,29 @@ public class GestorUsuarios {
      * @throws Exception Si el usuario no existe en la lista.
      * @throws IllegalArgumentException Si algún campo obligatorio del usuario es nulo o vacío.
      */
-    public void editarUsuario(Usuario usuarioEditado) throws Exception {
-        if (usuarioEditado == null) {
-            throw new NullPointerException("El usuario a editar no puede ser nulo.");
+    public void editarUsuario(Usuario usuarioSeleccionado, Usuario usuarioEditado) throws Exception {
+        confirmarEditarUsuario(usuarioEditado);
+        if (usuarioSeleccionado.getTelefono().equals(usuarioEditado.getTelefono())) {
+            usuarioEditado.setNombre(usuarioEditado.getNombre());
+            usuarioEditado.setApellido(usuarioEditado.getApellido());
+            usuarioEditado.setFechaCumpleanios(usuarioEditado.getFechaCumpleanios());
+            usuarioEditado.setCorreo(usuarioEditado.getCorreo());
+            usuarioEditado.setRutaImagenPerfil(usuarioEditado.getRutaImagenPerfil());
         }
-
-        // Buscar el usuario original por teléfono
-        Usuario usuarioOriginal = listaUsuarios.stream()
-                .filter(u -> u.getTelefono().equals(usuarioEditado.getTelefono()))
-                .findFirst()
-                .orElseThrow(() -> new Exception("El usuario a editar no existe en la lista."));
-
-        confirmarEditarUsuario(usuarioEditado, usuarioOriginal);
-
-        usuarioOriginal.setNombre(usuarioEditado.getNombre());
-        usuarioOriginal.setApellido(usuarioEditado.getApellido());
-        usuarioOriginal.setFechaCumpleanios(usuarioEditado.getFechaCumpleanios());
-        usuarioOriginal.setCorreo(usuarioEditado.getCorreo());
-        usuarioOriginal.setRutaImagenPerfil(usuarioEditado.getRutaImagenPerfil());
+        if (buscarUsuarioNombre(usuarioEditado.getTelefono()) != null) {
+            throw new IllegalArgumentException("Ya existe un usuario con el mismo teléfono.");
+        } else {
+            usuarioEditado.setNombre(usuarioEditado.getNombre());
+            usuarioEditado.setApellido(usuarioEditado.getApellido());
+            usuarioEditado.setTelefono(usuarioEditado.getTelefono());
+            usuarioEditado.setFechaCumpleanios(usuarioEditado.getFechaCumpleanios());
+            usuarioEditado.setCorreo(usuarioEditado.getCorreo());
+            usuarioEditado.setRutaImagenPerfil(usuarioEditado.getRutaImagenPerfil());
+        }
     }
 
-    public void confirmarEditarUsuario(Usuario usuarioEditado, Usuario usuarioOriginal) throws Exception {
-        if (usuarioEditado == null || usuarioOriginal == null) {
-            throw new NullPointerException("El usuario a editar no puede ser nulo.");
-        }
-
+    public boolean confirmarEditarUsuario(Usuario usuarioEditado) throws IllegalArgumentException {
+        boolean repetido = false;
         if (usuarioEditado.getNombre() == null || usuarioEditado.getNombre().isEmpty()) {
             throw new IllegalArgumentException("El campo 'nombre' no puede estar vacío.");
         }
@@ -151,20 +148,11 @@ public class GestorUsuarios {
         if (usuarioEditado.getCorreo() == null || usuarioEditado.getCorreo().isEmpty() || !usuarioEditado.getCorreo().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
             throw new IllegalArgumentException("El campo 'correo' debe ser una dirección válida.");
         }
-
-        // **Evitar duplicados en nombre y apellido con otros usuarios**
-        boolean nombreApellidoExiste = listaUsuarios.stream()
-                .filter(u -> !u.equals(usuarioOriginal))  // Excluir al usuario original
-                .anyMatch(u -> u.getNombre().equalsIgnoreCase(usuarioEditado.getNombre()) &&
-                        u.getApellido().equalsIgnoreCase(usuarioEditado.getApellido()));
-
-        if (nombreApellidoExiste) {
-            throw new IllegalArgumentException("Ya existe otro usuario con el mismo nombre y apellido.");
+        if (buscarUsuarioNombre(usuarioEditado.getNombre()) != null && buscarUsuarioApellido(usuarioEditado.getApellido()) != null) {
+            repetido = true;
         }
+        return repetido;
     }
-
-
-
 
     /**
      * Elimina un usuario de la lista.
@@ -194,7 +182,8 @@ public class GestorUsuarios {
      * @param rutaImagenPerfil
      * @throws IllegalArgumentException Si algún campo es nulo, vacío o no cumple con los requisitos.
      */
-    public void confirmarUsuario(String nombre, String apellido, String telefono, LocalDate fechaCumpleanios, String correo, String rutaImagenPerfil) throws Exception {
+    public boolean confirmarUsuario(String nombre, String apellido, String telefono, LocalDate fechaCumpleanios, String correo, String rutaImagenPerfil) throws Exception {
+        boolean repetido = false;
         if (nombre == null || nombre.isEmpty()) {
             throw new IllegalArgumentException("El campo 'nombre' no puede estar vacío.");
         }
@@ -214,21 +203,8 @@ public class GestorUsuarios {
             throw new IllegalArgumentException("Ya existe un usuario con el mismo teléfono.");
         }
         if (buscarUsuarioNombre(nombre) != null && buscarUsuarioApellido(apellido) != null) {
-            throw new IllegalArgumentException("Ya existe un usuario con el mismo nombre y apellido.");
+            repetido = true;
         }
+        return repetido;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
