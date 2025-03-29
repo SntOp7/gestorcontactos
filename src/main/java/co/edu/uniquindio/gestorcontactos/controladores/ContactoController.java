@@ -124,7 +124,7 @@ public class ContactoController extends Controller implements Initializable {
                 gestor.editarUsuario(usuarioSeleccionado, usuarioEditado);
                 super.mostrarAlerta("Se ha editado el contacto.", Alert.AlertType.INFORMATION);
             } else {
-                
+
             }
         } catch (Exception e) {
             super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);

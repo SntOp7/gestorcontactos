@@ -41,7 +41,7 @@ public class GestorUsuarios {
     public Usuario buscarUsuarioNombre(String nombre) {
         if (nombre == null || nombre.isEmpty()) {
             throw new IllegalArgumentException("El nombre no puede ser vacio");
-        } else if (!nombre.matches("[A-Za-zÁÉÍÓÚáéíóúñÑüÜ]+( [A-Za-zÁÉÍÓÚáéíóúñÑüÜ]+)*")) {
+        } else if (!nombre.matches("^[A-Za-zÁÉÍÓÚáéíóúñÑüÜ]+(\\\\s[A-Za-zÁÉÍÓÚáéíóúñÑüÜ]+)*$")) {
             throw new IllegalArgumentException("Formato del nombre no es valido");
         }
         return listaUsuarios.stream()

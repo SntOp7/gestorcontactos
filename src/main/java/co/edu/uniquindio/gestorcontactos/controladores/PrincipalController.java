@@ -108,6 +108,7 @@ public class PrincipalController extends Controller implements Initializable {
                 Opciones opcion = opcionesBox.getSelectionModel().getSelectedItem();
                 opcionesBox.setPromptText("Opciones de Contacto");
                 if (opcion == Opciones.AGREGAR) {
+                        tblContactos.getSelectionModel().clearSelection();
                         app.openContactoView();
                 } else if (opcion == Opciones.ELIMINAR || opcion == Opciones.EDITAR) {
                         seleccionarUsuario();
