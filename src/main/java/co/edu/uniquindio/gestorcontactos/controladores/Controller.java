@@ -19,7 +19,7 @@ import java.net.URL;
  */
 public abstract class Controller {
 
-    public boolean reemplazar =  false;
+    public static boolean reemplazar;
 
     /** Usuario seleccionado en la aplicación. */
     public static Usuario usuarioSelected = null;

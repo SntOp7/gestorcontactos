@@ -25,13 +25,17 @@ public class RepetidoController extends Controller {
 
     @FXML
     void reemplazarAction(ActionEvent event) {
-        super.reemplazar = true;
-        Stage stage = (Stage) cancelarButton.getScene().getWindow();
-        stage.close();
+        reemplazar = true;
+        cerrarView();
     }
 
     @FXML
     void cancelarAction(ActionEvent event) {
+        reemplazar = false;
+        cerrarView();
+    }
+
+    private void cerrarView() {
         Stage stage = (Stage) cancelarButton.getScene().getWindow();
         stage.close();
     }

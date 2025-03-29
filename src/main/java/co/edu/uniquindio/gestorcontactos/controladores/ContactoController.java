@@ -147,9 +147,10 @@ public class ContactoController extends Controller implements Initializable {
                 super.mostrarAlerta("Se ha agregado el contacto.", Alert.AlertType.INFORMATION);
             } else {
                 app.openRepetidoView();
-                if (super.reemplazar) {
+                if (reemplazar) {
                     Usuario reemplazo = new Usuario(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil);
                     gestor.reemplazarUsuario(reemplazo);
+                    System.out.print("a");
                 }
             }
         } catch (Exception e) {
