@@ -84,7 +84,7 @@ public class ContactoController extends Controller implements Initializable {
                 Image imagenSeleccionada = new Image(archivoSeleccionado.toURI().toString());
                 imagenContacto.setImage(imagenSeleccionada);
             } catch (Exception e) {
-                mostrarAlerta("No se pudo cargar la imagen seleccionada", Alert.AlertType.ERROR);
+                mostrarAlerta("No se pudo cargar la imagen seleccionada.", Alert.AlertType.ERROR);
             }
         }
     }
@@ -112,7 +112,6 @@ public class ContactoController extends Controller implements Initializable {
     }
 
     private void editarUsuario(Usuario usuarioOriginal) {
-        cargarData();
         String nombre = nombretxt.getText();
         String apellido = apellidotxt.getText();
         String telefono = telefonotxt.getText();

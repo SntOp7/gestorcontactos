@@ -161,8 +161,9 @@ public class PrincipalController extends Controller implements Initializable {
                                 tblContactos.getSelectionModel().clearSelection();
                                 tblContactos.getSelectionModel().select(usuarioEncontrado);
                                 tblContactos.scrollTo(usuarioEncontrado);
+                                super.mostrarAlerta("Se ha encontrado el contacto.", Alert.AlertType.INFORMATION);
                         } else {
-                                super.mostrarAlerta("No se encontró el usuario.", Alert.AlertType.INFORMATION);
+                                super.mostrarAlerta("No se encontró el contacto.", Alert.AlertType.INFORMATION);
                         }
 
                 } catch (IllegalArgumentException e) {
@@ -179,5 +180,6 @@ public class PrincipalController extends Controller implements Initializable {
         @FXML
         private void observarContactoAction(ActionEvent event){
                 actualizarTabla();
+                super.mostrarAlerta("Se ha cargado la tabla.", Alert.AlertType.INFORMATION);
         }
 }
