@@ -191,6 +191,8 @@ public class ContactoController extends Controller implements Initializable {
                         imagenContacto.getImage().toString()
                 );
                 mostrarAlerta("Se ha agregado el contacto.", Alert.AlertType.INFORMATION);
+            } else {
+                app.openRepetidoView();
             }
         } catch (Exception e) {
             mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);

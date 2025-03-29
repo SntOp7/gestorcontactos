@@ -20,11 +20,14 @@ public class App extends Application {
 
     private Stage principalStage;
     private Stage contactoStage;
+    private Stage repetidoStage;
 
     @Getter
     Controller principalController;
     @Getter
     Controller contactoController;
+    @Getter
+    Controller repetidoController;
 
     public static void main(String[] args) {
         launch();
@@ -50,6 +53,15 @@ public class App extends Application {
         iniciarView(contactoStage, contactoController, loader);
     }
 
+    public void openRepetidoView() throws Exception {
+        if (repetidoStage == null) {
+            repetidoStage = new Stage();
+        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/gestorcontactos/interfazRepetido.fxml"));
+        iniciarView(repetidoStage, repetidoController, loader);
+    }
+
+
     public void iniciarView(Stage stage, Controller controller, FXMLLoader loader) throws Exception {
         Parent root = loader.load();
         controller = loader.getController();
@@ -61,22 +73,4 @@ public class App extends Application {
         stage.setResizable(false);
         stage.show();
     }
-
-    /*public void iniciarView(Stage stage, Controller controller, FXMLLoader loader) throws Exception {
-        Parent root = loader.load();
-        controller = loader.getController(); // Obtener la instancia real del controlador
-
-        if (controller instanceof PrincipalController) {
-            principalController = (PrincipalController) controller; // Asignar correctamente
-        } else if (controller instanceof ContactoController) {
-            contactoController = (ContactoController) controller; // Asignar correctamente
-        }
-
-        controller.setApp(this); // Asignar la instancia de App
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
-    }*/
 }
