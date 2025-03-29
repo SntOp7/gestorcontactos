@@ -60,7 +60,7 @@ public class ContactoController extends Controller implements Initializable {
     }
 
     private void cargarData() {
-        Usuario usuario = super.getUsuarioSelected();
+        Usuario usuario = usuarioSelected;
         nombretxt.setText(usuario.getNombre());
         apellidotxt.setText(usuario.getApellido());
         telefonotxt.setText(usuario.getTelefono());
@@ -88,7 +88,7 @@ public class ContactoController extends Controller implements Initializable {
 
     @FXML
     void confirmarButtonAction(ActionEvent event) {
-        Usuario usuario = super.getUsuarioSelected();
+        Usuario usuario = usuarioSelected;
         if (usuario != null) {
             editarUsuario(usuario);
             cerrarView();

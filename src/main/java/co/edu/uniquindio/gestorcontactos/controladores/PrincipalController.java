@@ -98,17 +98,20 @@ public class PrincipalController extends Controller implements Initializable {
         }
 
         private void seleccionarUsuario() {
-                tblContactos.setOnMouseClicked(e -> super.setUsuarioSelected(tblContactos.getSelectionModel().getSelectedItem()));
+                tblContactos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+                        usuarioSelected = newSelection;
+                });
         }
 
         @FXML
         void aceptarAction(ActionEvent event) throws Exception {
                 Opciones opcion = opcionesBox.getSelectionModel().getSelectedItem();
+                opcionesBox.setPromptText("Opciones de Contacto");
                 if (opcion == Opciones.AGREGAR) {
                         app.openContactoView();
                 } else if (opcion == Opciones.ELIMINAR || opcion == Opciones.EDITAR) {
                         seleccionarUsuario();
-                        Usuario usuario = super.getUsuarioSelected();
+                        Usuario usuario = usuarioSelected;
                         if (usuario != null) {
                                 if (opcion == Opciones.ELIMINAR) {
                                         gestor.eliminarUsuario(usuario);
@@ -122,12 +125,12 @@ public class PrincipalController extends Controller implements Initializable {
                 } else {
                         super.mostrarAlerta("Debe escoger una opción.", Alert.AlertType.ERROR);
                 }
-                opcionesBox.setValue(Opciones.OPCIONES);
         }
 
         @FXML
         void buscarAction(MouseEvent event) {
                 Filtrado filtrado = filtrarBox.getSelectionModel().getSelectedItem();
+                filtrarBox.setPromptText("Filtrar");
                 String argumento = buscarContactoTxt.getText().trim();
                 if (filtrado == null) {
                         super.mostrarAlerta("Debe seleccionar un filtro para la busqueda.", Alert.AlertType.ERROR);
@@ -165,7 +168,6 @@ public class PrincipalController extends Controller implements Initializable {
                 } catch (IllegalArgumentException e) {
                         super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
                 }
-                filtrarBox.setValue(Filtrado.FILTRAR);
         }
 
         private void actualizarTabla() {

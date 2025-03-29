@@ -13,9 +13,8 @@ import java.io.File;
 import java.net.URL;
 
 public abstract class Controller {
-    @Getter
-    @Setter
-    private Usuario usuarioSelected = null;
+
+    public static Usuario usuarioSelected = null;
 
     public static GestorUsuarios gestor = new GestorUsuarios();
 
