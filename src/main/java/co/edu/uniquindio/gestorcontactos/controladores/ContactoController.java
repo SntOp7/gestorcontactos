@@ -56,6 +56,7 @@ public class ContactoController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        cargarData();
         cargarImagen("/imagenes/contacto-3d.png", imagenContacto);
     }
 
@@ -141,6 +142,11 @@ public class ContactoController extends Controller implements Initializable {
         } catch (Exception e) {
             super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
         }
+    }
+
+    @FXML
+    private void cargarButtonAction(ActionEvent event){
+        cargarData();
     }
 }
 
