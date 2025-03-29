@@ -1,3 +1,6 @@
+/**
+ * Paquete que contiene las clases del modelo para la gestión de contactos.
+ */
 package co.edu.uniquindio.gestorcontactos.modelo;
 
 import lombok.Getter;
@@ -8,11 +11,19 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
+/**
+ * Clase encargada de gestionar los usuarios del sistema.
+ * Permite crear, buscar, editar y eliminar usuarios.
+ * Utiliza anotaciones de Lombok para generar getters, setters y constructor sin argumentos.
+ */
 @Setter
 @Getter
 @NoArgsConstructor
 public class GestorUsuarios {
 
+    /**
+     * Lista que almacena todos los usuarios registrados en el sistema.
+     */
     public LinkedList<Usuario> listaUsuarios = new LinkedList<>();
 
     /**
@@ -70,6 +81,13 @@ public class GestorUsuarios {
                 .orElse(null);
     }
 
+    /**
+     * Busca un usuario en la lista basado en su nombre completo (nombre y apellido).
+     *
+     * @param nombreCompleto Nombre completo del usuario (formato: "nombre apellido")
+     * @return El usuario encontrado o null si no existe.
+     * @throws IllegalArgumentException Si el nombre completo es nulo o vacío.
+     */
     public Usuario buscarUsuarioNombreApellido(String nombreCompleto) {
         if (nombreCompleto == null || nombreCompleto.trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre completo no puede estar vacío.");
@@ -106,7 +124,8 @@ public class GestorUsuarios {
     /**
      * Edita los datos de un usuario existente en la lista.
      *
-     * @param usuarioEditado Usuario a editar.
+     * @param usuarioSeleccionado Usuario original que se va a editar.
+     * @param usuarioEditado Usuario con los nuevos datos.
      * @throws NullPointerException Si el usuario es nulo.
      * @throws Exception Si el usuario no existe en la lista.
      * @throws IllegalArgumentException Si algún campo obligatorio del usuario es nulo o vacío.
@@ -133,12 +152,25 @@ public class GestorUsuarios {
         }
     }
 
+    /**
+     * Reemplaza un usuario original por un usuario editado en la lista de usuarios.
+     *
+     * @param original Usuario original a ser reemplazado.
+     * @param editado Usuario con los nuevos datos.
+     */
     public void reemplazarUsuario(Usuario original, Usuario editado) {
         listaUsuarios = listaUsuarios.stream()
                 .map(usuario -> usuario.getTelefono().equals(original.getTelefono()) ? editado : usuario)
                 .collect(Collectors.toCollection(LinkedList::new));
     }
 
+    /**
+     * Valida que los datos del usuario a editar sean correctos.
+     *
+     * @param usuarioEditado Usuario con los datos a validar.
+     * @return true si existe un usuario con el mismo nombre y apellido, false en caso contrario.
+     * @throws IllegalArgumentException Si algún campo no cumple con las validaciones requeridas.
+     */
     public boolean confirmarEditarUsuario(Usuario usuarioEditado) throws IllegalArgumentException {
         boolean repetido = false;
         if (usuarioEditado.getNombre() == null || usuarioEditado.getNombre().isEmpty()) {
@@ -182,12 +214,13 @@ public class GestorUsuarios {
     /**
      * Verifica que los datos del usuario sean válidos y que no haya duplicados.
      *
-     * @param nombre           Nombre del usuario.
-     * @param apellido         Apellido del usuario.
-     * @param telefono         Número de teléfono del usuario.
+     * @param nombre Nombre del usuario.
+     * @param apellido Apellido del usuario.
+     * @param telefono Número de teléfono del usuario.
      * @param fechaCumpleanios Fecha de cumpleaños del usuario.
-     * @param correo           Correo electrónico del usuario.
-     * @param rutaImagenPerfil
+     * @param correo Correo electrónico del usuario.
+     * @param rutaImagenPerfil Ruta de la imagen de perfil del usuario.
+     * @return true si existe un usuario con el mismo nombre y apellido, false en caso contrario.
      * @throws IllegalArgumentException Si algún campo es nulo, vacío o no cumple con los requisitos.
      */
     public boolean confirmarUsuario(String nombre, String apellido, String telefono, LocalDate fechaCumpleanios, String correo, String rutaImagenPerfil) throws Exception {

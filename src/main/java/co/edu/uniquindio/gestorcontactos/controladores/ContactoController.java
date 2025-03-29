@@ -13,14 +13,20 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.Setter;
-
 import javafx.event.ActionEvent;
-
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+
+
+/**
+ * Controlador para la vista de gestión de contactos.
+ * Permite agregar, editar y visualizar información de contactos.
+ *
+ * Implementa {@link Initializable} para inicializar la vista con datos del contacto seleccionado.
+ */
 public class ContactoController extends Controller implements Initializable {
 
     @FXML
@@ -54,6 +60,13 @@ public class ContactoController extends Controller implements Initializable {
     private App app;
 
 
+
+    /**
+     * Inicializa la vista del controlador, cargando datos si existe un usuario seleccionado.
+     *
+     * @param url URL de la vista.
+     * @param resourceBundle Recursos asociados a la vista.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (usuarioSelected != null) {
@@ -62,6 +75,11 @@ public class ContactoController extends Controller implements Initializable {
         cargarImagen("/imagenes/contacto-3d.png", imagenContacto);
     }
 
+
+
+    /**
+     * Carga los datos del usuario en la interfaz de usuario.
+     */
     private void cargarData() {
         Usuario usuario = usuarioSelected;
         nombretxt.setText(usuario.getNombre());
@@ -71,6 +89,13 @@ public class ContactoController extends Controller implements Initializable {
         emailtxt.setText(usuario.getCorreo());
     }
 
+
+
+    /**
+     * Permite al usuario seleccionar una imagen de perfil desde su dispositivo.
+     *
+     * @param event Evento de acción del botón.
+     */
     @FXML
     void perfilButtonAction(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -89,72 +114,106 @@ public class ContactoController extends Controller implements Initializable {
         }
     }
 
+
+
+    /**
+     * Confirma la creación o edición del usuario y cierra la vista.
+     *
+     * @param event Evento de acción del botón.
+     */
     @FXML
     void confirmarButtonAction(ActionEvent event) {
-        Usuario usuario = usuarioSelected;
-        if (usuario != null) {
-            editarUsuario(usuario);
-            cerrarView();
+        if (usuarioSelected != null) {
+            editarUsuario(usuarioSelected);
         } else {
             agregarUsuario();
-            cerrarView();
         }
-    }
-
-    @FXML
-    void cancelarButtonAction(ActionEvent event) {
         cerrarView();
     }
 
+
+
+    /**
+     * Cierra la ventana actual.
+     */
     private void cerrarView() {
         Stage stage = (Stage) cancelarButton.getScene().getWindow();
         stage.close();
     }
 
+
+
+    /**
+     * Edita un usuario existente en el sistema.
+     *
+     * @param usuarioSeleccionado Usuario que se desea editar.
+     */
     private void editarUsuario(Usuario usuarioSeleccionado) {
-        String nombre = nombretxt.getText();
-        String apellido = apellidotxt.getText();
-        String telefono = telefonotxt.getText();
-        LocalDate fechaCumpleanios = cumpleaniosDate.getValue();
-        String correo = emailtxt.getText();
-        String rutaImagenPerfil = imagenContacto.getImage().toString();
-        Usuario usuarioEditado = new Usuario(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil);
+        Usuario usuarioEditado = new Usuario(
+                nombretxt.getText(),
+                apellidotxt.getText(),
+                telefonotxt.getText(),
+                cumpleaniosDate.getValue(),
+                emailtxt.getText(),
+                imagenContacto.getImage().toString()
+        );
         try {
             if (!gestor.confirmarEditarUsuario(usuarioEditado)) {
                 gestor.editarUsuario(usuarioSeleccionado, usuarioEditado);
-                super.mostrarAlerta("Se ha editado el contacto.", Alert.AlertType.INFORMATION);
-            } else {
-
+                mostrarAlerta("Se ha editado el contacto.", Alert.AlertType.INFORMATION);
             }
         } catch (Exception e) {
-            super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
+            mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
+
+
+    /**
+     * Agrega un nuevo usuario al sistema.
+     */
     private void agregarUsuario() {
-            String nombre = nombretxt.getText();
-            String apellido = apellidotxt.getText();
-            String telefono = telefonotxt.getText();
-            LocalDate fechaCumpleanios = cumpleaniosDate.getValue();
-            String correo = emailtxt.getText();
-            String rutaImagenPerfil = imagenContacto.getImage().toString();
         try {
-            if (!gestor.confirmarUsuario(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil)) {
-                gestor.crearContacto(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil);
-                super.mostrarAlerta("Se ha agregado el contacto.", Alert.AlertType.INFORMATION);
-            } else {
-
+            if (!gestor.confirmarUsuario(
+                    nombretxt.getText(),
+                    apellidotxt.getText(),
+                    telefonotxt.getText(),
+                    cumpleaniosDate.getValue(),
+                    emailtxt.getText(),
+                    imagenContacto.getImage().toString()
+            )) {
+                gestor.crearContacto(
+                        nombretxt.getText(),
+                        apellidotxt.getText(),
+                        telefonotxt.getText(),
+                        cumpleaniosDate.getValue(),
+                        emailtxt.getText(),
+                        imagenContacto.getImage().toString()
+                );
+                mostrarAlerta("Se ha agregado el contacto.", Alert.AlertType.INFORMATION);
             }
         } catch (Exception e) {
-            super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
+            mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
+
+
+    /**
+     * Limpia los campos del formulario.
+     *
+     * @param event Evento de acción del botón.
+     */
     @FXML
-    private void limpiarButtonAction(ActionEvent event){
+    private void limpiarButtonAction(ActionEvent event) {
         limpiarCasillas();
     }
 
+
+
+    /**
+     * Restablece los valores de los campos de entrada.
+     */
     private void limpiarCasillas() {
         nombretxt.clear();
         apellidotxt.clear();
@@ -163,9 +222,3 @@ public class ContactoController extends Controller implements Initializable {
         emailtxt.clear();
     }
 }
-
-
-    
-    
-
-
