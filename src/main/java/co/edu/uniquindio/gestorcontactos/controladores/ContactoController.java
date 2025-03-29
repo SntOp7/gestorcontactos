@@ -56,7 +56,9 @@ public class ContactoController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        cargarData();
+        if (usuarioSelected != null) {
+            cargarData();
+        }
         cargarImagen("/imagenes/contacto-3d.png", imagenContacto);
     }
 
@@ -145,8 +147,16 @@ public class ContactoController extends Controller implements Initializable {
     }
 
     @FXML
-    private void cargarButtonAction(ActionEvent event){
-        cargarData();
+    private void limpiarButtonAction(ActionEvent event){
+        limpiarCasillas();
+    }
+
+    private void limpiarCasillas() {
+        nombretxt.clear();
+        apellidotxt.clear();
+        telefonotxt.clear();
+        cumpleaniosDate.setValue(null);
+        emailtxt.clear();
     }
 }
 

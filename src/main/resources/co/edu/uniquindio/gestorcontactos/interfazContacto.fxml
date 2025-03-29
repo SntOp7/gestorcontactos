@@ -103,7 +103,7 @@
                         <Font name="Berlin Sans FB" size="12.0" />
                     </font>
                 </Button>
-            <Button fx:id="cargarButton" mnemonicParsing="false" onAction="#cargarButtonAction" prefHeight="26.0" prefWidth="95.0" style="-fx-background-color: #FFFF00; -fx-border-radius: 50px; -fx-border-width: 2px; -fx-background-radius: 50px;" text="Cargar" GridPane.columnIndex="2">
+            <Button fx:id="limpiarButton" mnemonicParsing="false" onAction="#limpiarButtonAction" prefHeight="26.0" prefWidth="95.0" style="-fx-background-color: #FFFF00; -fx-border-radius: 50px; -fx-border-width: 2px; -fx-background-radius: 50px;" text="Limpiar" GridPane.columnIndex="2">
                <font>
                   <Font name="Berlin Sans FB" size="12.0" />
                </font>
