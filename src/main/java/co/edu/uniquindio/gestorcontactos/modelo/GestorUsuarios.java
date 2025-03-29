@@ -43,8 +43,12 @@ public class GestorUsuarios {
         listaUsuarios.add(usuario);
     }
 
-    public void reemplzarContacto(String nombre, String apellido) throws Exception {
-
+    public void reemplazarUsuario(Usuario nuevoUsuario) {
+        listaUsuarios.replaceAll(usuario ->
+                usuario.getNombre().equalsIgnoreCase(nuevoUsuario.getNombre()) &&
+                        usuario.getApellido().equalsIgnoreCase(nuevoUsuario.getApellido())
+                        ? nuevoUsuario : usuario
+        );
     }
 
     /**

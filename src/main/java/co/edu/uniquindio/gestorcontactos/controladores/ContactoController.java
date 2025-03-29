@@ -124,7 +124,10 @@ public class ContactoController extends Controller implements Initializable {
                 gestor.editarUsuario(usuarioSeleccionado, usuarioEditado);
                 super.mostrarAlerta("Se ha editado el contacto.", Alert.AlertType.INFORMATION);
             } else {
-
+                app.openRepetidoView();
+                if (super.reemplazar) {
+                    gestor.reemplazarUsuario(usuarioEditado);
+                }
             }
         } catch (Exception e) {
             super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
@@ -143,7 +146,11 @@ public class ContactoController extends Controller implements Initializable {
                 gestor.crearContacto(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil);
                 super.mostrarAlerta("Se ha agregado el contacto.", Alert.AlertType.INFORMATION);
             } else {
-
+                app.openRepetidoView();
+                if (super.reemplazar) {
+                    Usuario reemplazo = new Usuario(nombre, apellido, telefono, fechaCumpleanios, correo, rutaImagenPerfil);
+                    gestor.reemplazarUsuario(reemplazo);
+                }
             }
         } catch (Exception e) {
             super.mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);

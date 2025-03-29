@@ -32,7 +32,6 @@ public class RepetidoController extends Controller {
 
     @FXML
     void cancelarAction(ActionEvent event) {
-        super.reemplazar = false;
         Stage stage = (Stage) cancelarButton.getScene().getWindow();
         stage.close();
     }
