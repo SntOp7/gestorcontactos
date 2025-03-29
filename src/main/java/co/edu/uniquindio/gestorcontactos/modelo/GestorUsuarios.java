@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 @Setter
 @Getter
@@ -41,7 +42,7 @@ public class GestorUsuarios {
     public Usuario buscarUsuarioNombre(String nombre) {
         if (nombre == null || nombre.isEmpty()) {
             throw new IllegalArgumentException("El nombre no puede ser vacio");
-        } else if (!nombre.matches("^[A-Za-zÁÉÍÓÚáéíóúñÑüÜ]+(\\\\s[A-Za-zÁÉÍÓÚáéíóúñÑüÜ]+)*$")) {
+        } else if (!nombre.matches("^[A-Za-zÁÉÍÓÚáéíóúÑñÜü][A-Za-zÁÉÍÓÚáéíóúÑñÜü0-9 .'-]*$")) {
             throw new IllegalArgumentException("Formato del nombre no es valido");
         }
         return listaUsuarios.stream()
@@ -118,8 +119,8 @@ public class GestorUsuarios {
             usuarioEditado.setFechaCumpleanios(usuarioEditado.getFechaCumpleanios());
             usuarioEditado.setCorreo(usuarioEditado.getCorreo());
             usuarioEditado.setRutaImagenPerfil(usuarioEditado.getRutaImagenPerfil());
-        }
-        if (buscarUsuarioNombre(usuarioEditado.getTelefono()) != null) {
+            reemplazarUsuario(usuarioSeleccionado, usuarioEditado);
+        } else if (buscarUsuarioTelefono(usuarioEditado.getTelefono()) != null) {
             throw new IllegalArgumentException("Ya existe un usuario con el mismo teléfono.");
         } else {
             usuarioEditado.setNombre(usuarioEditado.getNombre());
@@ -128,7 +129,14 @@ public class GestorUsuarios {
             usuarioEditado.setFechaCumpleanios(usuarioEditado.getFechaCumpleanios());
             usuarioEditado.setCorreo(usuarioEditado.getCorreo());
             usuarioEditado.setRutaImagenPerfil(usuarioEditado.getRutaImagenPerfil());
+            reemplazarUsuario(usuarioSeleccionado, usuarioEditado);
         }
+    }
+
+    public void reemplazarUsuario(Usuario original, Usuario editado) {
+        listaUsuarios = listaUsuarios.stream()
+                .map(usuario -> usuario.getTelefono().equals(original.getTelefono()) ? editado : usuario)
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     public boolean confirmarEditarUsuario(Usuario usuarioEditado) throws IllegalArgumentException {

@@ -181,6 +181,6 @@ public class PrincipalController extends Controller implements Initializable {
         @FXML
         private void observarContactoAction(ActionEvent event){
                 actualizarTabla();
-                super.mostrarAlerta("Se ha cargado la tabla.", Alert.AlertType.INFORMATION);
+                super.mostrarAlerta("Se ha cargado los contactos.", Alert.AlertType.INFORMATION);
         }
 }
