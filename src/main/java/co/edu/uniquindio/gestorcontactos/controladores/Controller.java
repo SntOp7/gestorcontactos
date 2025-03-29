@@ -6,6 +6,7 @@ import co.edu.uniquindio.gestorcontactos.modelo.Usuario;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import lombok.Getter;
 
 import java.io.File;
 import java.net.URL;
@@ -18,8 +19,7 @@ import java.net.URL;
  */
 public abstract class Controller {
 
-
-
+    public boolean reemplazar;
 
     /** Usuario seleccionado en la aplicación. */
     public static Usuario usuarioSelected = null;

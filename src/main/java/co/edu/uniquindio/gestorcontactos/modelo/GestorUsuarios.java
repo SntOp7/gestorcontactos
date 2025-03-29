@@ -43,6 +43,10 @@ public class GestorUsuarios {
         listaUsuarios.add(usuario);
     }
 
+    public void reemplzarContacto(String nombre, String apellido) throws Exception {
+
+    }
+
     /**
      * Busca un usuario en la lista basado en su nombre.
      *

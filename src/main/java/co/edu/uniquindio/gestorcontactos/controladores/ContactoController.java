@@ -133,6 +133,12 @@ public class ContactoController extends Controller implements Initializable {
 
 
 
+    @FXML
+    void cancelarButtonAction(ActionEvent event) {
+        cerrarView();
+    }
+
+
     /**
      * Cierra la ventana actual.
      */
@@ -193,6 +199,9 @@ public class ContactoController extends Controller implements Initializable {
                 mostrarAlerta("Se ha agregado el contacto.", Alert.AlertType.INFORMATION);
             } else {
                 app.openRepetidoView();
+                if (super.reemplazar) {
+
+                }
             }
         } catch (Exception e) {
             mostrarAlerta(e.getMessage(), Alert.AlertType.ERROR);
